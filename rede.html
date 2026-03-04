@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> - Aprenda e Colabore</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">📚 LearnGram</a>
+            <div class="search-bar">
+                <input type="text" placeholder="Buscar trilhas, mentores ou tópicos...">
+            </div>
+            <div style="font-size: 1.2rem; cursor: pointer;">
+                🏠 📖 💬 👤
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="feed">
+            
+            <div class="stories-container">
+                <div class="story">
+                    <img src="https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?w=150&q=80" alt="Código" class="story-img">
+                    <span class="story-title">HTML/CSS</span>
+                </div>
+                <div class="story">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=150&q=80" alt="Estudos" class="story-img">
+                    <span class="story-title">Foco 25min</span>
+                </div>
+                <div class="story">
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=150&q=80" alt="Tech" class="story-img">
+                    <span class="story-title">Desafios JS</span>
+                </div>
+                <div class="story">
+                    <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=150&q=80" alt="Anotações" class="story-img">
+                    <span class="story-title">Mapas Ment.</span>
+                </div>
+            </div>
+
+            <article class="post">
+                <div class="post-header">
+                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=50&q=80" alt="Avatar" class="post-avatar">
+                    <span class="post-user">dev_carlos</span>
+                    <span class="post-tag">Procura-se Dupla 🤝</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&q=80" alt="Post imagem" class="post-image">
+                
+                <div class="post-actions">
+                    <span class="like-btn" onclick="toggleLike(this)">🤍</span>
+                    <span>💬</span>
+                    <span>📤</span>
+                </div>
+
+                <div class="post-content">
+                    <span class="post-likes">Apoiado por 124 estudantes</span>
+                    <p><strong>dev_carlos</strong> Alguém afim de construir um projeto em React neste final de semana? A ideia é criar um app de To-Do list focado em produtividade. Nível iniciante/intermediário! Deixe um comentário ou mande DM. 👇 #colaboração #reactjs #pairprogramming</p>
+                </div>
+            </article>
+
+            <article class="post">
+                <div class="post-header">
+                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=50&q=80" alt="Avatar" class="post-avatar">
+                    <span class="post-user">mari_estuda</span>
+                    <span class="post-tag">Dica Digital 💡</span>
+                </div>
+                <img src="https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?w=800&q=80" alt="Post imagem" class="post-image">
+                
+                <div class="post-actions">
+                    <span class="like-btn" onclick="toggleLike(this)">🤍</span>
+                    <span>💬</span>
+                    <span>📤</span>
+                </div>
+
+                <div class="post-content">
+                    <span class="post-likes">Apoiado por 342 estudantes</span>
+                    <p><strong>mari_estuda</strong> 🔒 Boas práticas digitais: Você sabia que reutilizar senhas é o erro número 1 que compromete contas de estudantes? Usem um gerenciador de senhas! Qual vocês recomendam nos comentários? #cibersegurança #dicasTech</p>
+                </div>
+            </article>
+
+        </section>
+
+        <aside class="sidebar">
+            <div class="suggestion-item">
+                <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=100&q=80" alt="Seu Perfil">
+                <div class="suggestion-info">
+                    <h4>seu_usuario</h4>
+                    <p>Iniciante em Front-end</p>
+                </div>
+            </div>
+
+            <h4 class="sidebar-title">Mentores e Grupos Sugeridos</h4>
+
+            <div class="suggestion-item">
+                <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&q=80" alt="Mentor 1">
+                <div class="suggestion-info">
+                    <h4>Prof. Ana</h4>
+                    <p>Mentora de UX/UI</p>
+                </div>
+                <button class="follow-btn">Acompanhar</button>
+            </div>
+
+            <div class="suggestion-item">
+                <img src="https://images.unsplash.com/photo-1506869640319-fe1a24fd76dc?w=100&q=80" alt="Grupo">
+                <div class="suggestion-info">
+                    <h4>Clube do Python</h4>
+                    <p>Comunidade • 5k membros</p>
+                </div>
+                <button class="follow-btn">Entrar</button>
+            </div>
+        </aside>
+    </main>
+
+   <script src="script.js"></script>
+</body>
+</html>

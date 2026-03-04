@@ -1,0 +1,224 @@
+ /* Estilos Base e Variáveis */
+        :root {
+            --bg-color: #fafafa;
+            --border-color: #dbdbdb;
+            --text-main: #262626;
+            --text-muted: #8e8e8e;
+            --primary-color: #0095f6;
+            --heart-color: #ed4956;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+        }
+
+        /* Cabeçalho (Navbar) */
+        header {
+            background-color: white;
+            border-bottom: 1px solid var(--border-color);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 975px;
+            margin: 0 auto;
+            padding: 0 20px;
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: var(--text-main);
+        }
+
+        .search-bar input {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 8px 16px;
+            outline: none;
+            width: 250px;
+        }
+
+        /* Layout Principal */
+        main {
+            max-width: 975px;
+            margin: 85px auto 0;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            padding: 0 20px;
+        }
+
+        /* Seção "Stories" (Trilhas Rápidas) */
+        .stories-container {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px 0;
+            margin-bottom: 24px;
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+        }
+
+        .story {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 80px;
+            cursor: pointer;
+        }
+
+        .story-img {
+            width: 66px;
+            height: 66px;
+            border-radius: 50%;
+            border: 3px solid var(--primary-color);
+            padding: 2px;
+            object-fit: cover;
+        }
+
+        .story-title {
+            font-size: 0.75rem;
+            margin-top: 5px;
+            color: var(--text-main);
+        }
+
+        /* Feed de Postagens */
+        .post {
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            padding: 14px;
+        }
+
+        .post-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .post-user {
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .post-tag {
+            font-size: 0.75rem;
+            color: var(--primary-color);
+            margin-left: auto;
+            background: #e0f2fe;
+            padding: 3px 8px;
+            border-radius: 12px;
+        }
+
+        .post-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .post-actions {
+            padding: 14px;
+            display: flex;
+            gap: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .like-btn.liked {
+            color: var(--heart-color);
+        }
+
+        .post-content {
+            padding: 0 14px 14px;
+            font-size: 0.9rem;
+        }
+
+        .post-likes {
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        /* Barra Lateral (Mentores e Dicas) */
+        .sidebar {
+            position: sticky;
+            top: 85px;
+        }
+
+        .sidebar-title {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .suggestion-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .suggestion-item img {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .suggestion-info h4 {
+            font-size: 0.9rem;
+        }
+
+        .suggestion-info p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .follow-btn {
+            margin-left: auto;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+
+        /* Responsividade */
+        @media (max-width: 800px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                display: none;
+            }
+            .search-bar {
+                display: none;
+            }
+        }
