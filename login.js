@@ -1,3 +1,8 @@
+ import { app } from './firebase/config.js';
+
+console.log("Firebase conectado com sucesso!", app.options.projectId);
+ 
+ 
  document.getElementById('loginForm').addEventListener('submit', function(event) {
             // Evita que a página recarregue ao clicar no botão
             event.preventDefault();
@@ -16,15 +21,18 @@
                 return; // Para a execução do código aqui
             }
 
-            // 2. Regra de validação do email SENAI
-            // Pega o que vem depois do "@" e verifica se inclui a palavra "senai"
-            const dominio = email.split('@')[1]; 
-            
-            if (!dominio || !dominio.toLowerCase().includes('senai')) {
-                errorDiv.textContent = 'Somente usuários com email senai podem entrar na rede.';
-                return; // Para a execução do código aqui
-            }
+           
 
-            // Se passar por todas as validações, redireciona para a página principal
+           // Se passar por todas as validações, salva os dados e redireciona
+            // Pega o que vem antes do @ para ser o nome de usuário provisório
+            const nomeUsuario = email.split('@')[0]; 
+            
+            // Salva no navegador
+            localStorage.setItem('usuarioEmail', email);
+            localStorage.setItem('usuarioNome', nomeUsuario);
+
+            // Redireciona para a página principal
             window.location.href = 'rede.html';
+
+
         });

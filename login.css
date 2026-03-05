@@ -1,8 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+* {
+    font-family: 'Poppins', sans-serif;
+}
 body{
     justify-content: center;
     display:flex ;
     align-items: center;
     position:relative;
+    background: linear-gradient(to right ,rgb(0, 162, 255),rgb(0, 204, 255));
+
 }
 
 
@@ -13,9 +19,10 @@ body{
     height: 400px;
     text-align: center;
     margin-top: 200px;
-
-
+    background-color: #f0f0f0;
+    box-shadow:3px 3px 3px 6px #01a6e7;
 }
+
 
 
 .input1{
@@ -25,6 +32,8 @@ body{
     margin-bottom: 20px;
     padding: 12px;
     border-radius: 20px;
+    box-shadow: 2px 2px 2px 2px rgb(145, 145, 145);
+    
     outline: none; /* Remove a linha padrão de clique do navegador */
     
     /* TRUQUE: Cria a borda com a grossura desejada, mas invisível */
@@ -57,6 +66,7 @@ body{
     margin-bottom: 20px;
     padding: 12px;
     border-radius: 20px;
+    box-shadow: 2px 2px 2px 2px rgb(148, 148, 148);
     outline: none; /* Remove a linha padrão de clique do navegador */
     
     /* TRUQUE: Cria a borda com a grossura desejada, mas invisível */
@@ -80,20 +90,58 @@ body{
 }
 
 
-
-
-
-
-
-
-
-
-
 .login-btn{
     width: 100px;
     height: 40px;
     border-radius: 20px;
-    background-color: rgb(0, 183, 255);
+    background-color: rgb(3, 171, 238);
     color: white;
     border: 0px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+}
+.login-btn:hover{
+    background-color: rgb(0, 204, 255); /* Fica com um azul mais escuro */
+    transform: scale(1.05); /* Faz o botão crescer ligeiramente (5%) */
+    box-shadow: 0 4px 8px rgb(0, 217, 255); /* Adiciona uma sombra azulada */
+
+
+}
+
+.logo{
+    color: #ff9100;
+    
+
+}
+
+.subtitle{
+    color: var(--text-muted);
+    animation: brilho-pulsante 3s infinite ease-in-out;
+
+}
+
+@keyframes brilho-pulsante {
+    0% {
+        /* Estado inicial: sem brilho ou brilho muito fraco */
+        text-shadow: 0 0 2px rgba(0, 149, 246, 0.1);
+    }
+    50% {
+        /* Estado no meio: brilho forte usando a cor azul do Senai */
+        text-shadow: 0 0 8px rgba(0, 149, 246, 0.6), 
+                     0 0 15px rgba(0, 153, 255, 0.4);
+        color: #0077c5; /* Dá uma leve escurecida/destacada no texto junto com o brilho */
+    }
+    100% {
+        /* Estado final: volta ao original */
+        text-shadow: 0 0 2px rgba(0, 149, 246, 0.1);
+    }
+}
+
+
+.cadastrar{
+    margin-left: 230px;
+
+
+
+
 }
