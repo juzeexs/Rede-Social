@@ -1,30 +1,48 @@
- document.getElementById('loginForm').addEventListener('submit', function(event) {
-            // Evita que a página recarregue ao clicar no botão
-            event.preventDefault();
+document.getElementById('loginForm').addEventListener('submit', function(event) {
+    event.preventDefault();
 
-            // Pega os valores digitados e remove os espaços em branco nas pontas (.trim())
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value.trim();
-            const errorDiv = document.getElementById('error-message');
+    // Pegamos o que o usuário digitou no login
+    const emailDigitado = document.getElementById('email').value.trim();
+    const senhaDigitada = document.getElementById('password').value.trim();
+    
+    const errorDiv = document.getElementById('error-message');
+    errorDiv.textContent = '';
+    errorDiv.style.color = 'red'; 
 
-            // Limpa mensagens de erro antigas
-            errorDiv.textContent = '';
+    // 1. Campos vazios
+    if (emailDigitado === '' || senhaDigitada === '') {
+        errorDiv.textContent = 'Por favor, preencha o e-mail e a senha.';
+        return; 
+    }
 
-            // 1. Regra de campos vazios
-            if (email === '' || password === '') {
-                errorDiv.textContent = 'Por favor, digite os dados pedidos nos campos vazios.';
-                return; // Para a execução do código aqui
-            }
+    // 2. Bloqueio de segurança: Tem que ser @aluno.senai.br
+    if (!emailDigitado.toLowerCase().endsWith('@aluno.senai.br')) {
+        errorDiv.textContent = 'Acesso negado: O e-mail deve terminar com @aluno.senai.br';
+        return; 
+    }
 
-            // 2. Regra de validação do email SENAI
-            // Pega o que vem depois do "@" e verifica se inclui a palavra "senai"
-            const dominio = email.split('@')[1]; 
-            
-            if (!dominio || !dominio.toLowerCase().includes('senai')) {
-                errorDiv.textContent = 'Somente usuários com email senai podem entrar na rede.';
-                return; // Para a execução do código aqui
-            }
+    // 3. Puxar dados que foram salvos no Cadastro
+    const emailCadastrado = localStorage.getItem('emailCadastrado');
+    const senhaCadastrada = localStorage.getItem('senhaCadastrada');
+    const nomeCadastrado = localStorage.getItem('nomeCadastrado');
 
-            // Se passar por todas as validações, redireciona para a página principal
-            window.location.href = 'rede.html';
-        });
+    // 4. Verifica se existe cadastro
+    if (!emailCadastrado || !senhaCadastrada) {
+        errorDiv.textContent = 'Nenhum cadastro encontrado. Por favor, cadastre-se primeiro.';
+        return;
+    }
+
+    // 5. Verifica se o e-mail e a senha digitados são IGUAIS aos do cadastro
+    if (emailDigitado !== emailCadastrado || senhaDigitada !== senhaCadastrada) {
+        errorDiv.textContent = 'E-mail ou senha incorretos. Tente novamente.';
+        return;
+    }
+
+    // --- SUCESSO! ---
+    // Salva os dados com os nomes exatos que o seu arquivo script.js usa na rede.html
+    localStorage.setItem('usuarioEmail', emailDigitado);
+    localStorage.setItem('usuarioNome', nomeCadastrado);
+
+    // Redireciona para a rede!
+    window.location.href = 'rede.html';
+});
