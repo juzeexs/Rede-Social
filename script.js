@@ -40,6 +40,7 @@ function censurarMensagem(texto) {
     return textoFiltrado;
 }
 
+
 /********************************************************/
 // ====================================================
 // SISTEMA DE ABA LATERAL DE COMENTÁRIOS
@@ -118,3 +119,4 @@ function verificarEnterPainel(event) {
         publicarComentarioPainel();
     }
 }
+
