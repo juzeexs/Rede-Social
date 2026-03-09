@@ -222,3 +222,94 @@
                 display: none;
             }
         }
+
+    /* ========================================== */
+/* ESTILOS DO PAINEL LATERAL DE COMENTÁRIOS   */
+/* ========================================== */
+
+/* 1. Fundo escuro atrás do painel (escondido por padrão) */
+.overlay {
+    display: none; 
+    position: fixed; 
+    top: 0; left: 0; 
+    width: 100%; height: 100%; 
+    background: rgba(0,0,0,0.5); 
+    z-index: 999; 
+}
+
+/* 2. A aba lateral em si (escondida fora da tela na direita) */
+.comments-panel {
+    position: fixed; 
+    top: 0; 
+    right: -400px; /* Isso é o que esconde ela fora da tela! */
+    width: 350px; 
+    height: 100vh; /* Ocupa a altura toda da tela */
+    background: white; 
+    z-index: 1000; 
+    transition: right 0.3s ease; /* Animação suave deslizando */
+    display: flex; 
+    flex-direction: column; 
+    box-shadow: -2px 0 10px rgba(0,0,0,0.1); 
+}
+
+/* 3. Classe que o JavaScript usa para puxar o painel para dentro da tela */
+.comments-panel.open {
+    right: 0; 
+}
+
+/* 4. Estilos de dentro do painel (Cabeçalho, botão de fechar, textos) */
+.panel-header {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    padding: 15px 20px; 
+    border-bottom: 1px solid var(--border-color); 
+}
+
+.close-btn {
+    cursor: pointer;
+    font-weight: bold;
+    color: var(--text-muted);
+}
+
+.close-btn:hover {
+    color: red;
+}
+
+.panel-content {
+    flex: 1; 
+    padding: 15px 20px; 
+    overflow-y: auto; 
+}
+
+.panel-content p {
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+/* 5. Área onde a pessoa digita o comentário */
+.panel-footer {
+    padding: 15px 20px; 
+    border-top: 1px solid var(--border-color); 
+    display: flex; 
+}
+
+.panel-footer input {
+    flex: 1; 
+    padding: 10px 15px; 
+    border: 1px solid var(--border-color); 
+    border-radius: 20px; 
+    outline: none; 
+    font-size: 0.9rem;
+}
+
+.panel-footer button {
+    background: none; 
+    border: none; 
+    color: var(--primary-color); 
+    font-weight: bold; 
+    margin-left: 10px; 
+    cursor: pointer; 
+}    

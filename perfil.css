@@ -125,3 +125,36 @@
         gap: 3px;
     }
 }
+
+
+
+.input1{
+    width:160px ;
+    height: 8px;
+    border-radius: 20px;
+    padding: 12px;
+    border-radius: 20px;
+    box-shadow: 2px 2px 2px 2px rgb(145, 145, 145);
+    
+
+
+    outline: none; /* Remove a linha padrão de clique do navegador */
+    
+    /* TRUQUE: Cria a borda com a grossura desejada, mas invisível */
+    border: 2px solid transparent; 
+    
+    background-color: #f0f0f0; /* Uma cor de fundo leve para o input aparecer */
+    
+    /* Deixa o aparecimento da borda suave */
+    transition: border-color 0.8s ease; 
+}
+
+.input1:hover {
+    border-color: #0095f6; /* A cor azul do Senai aparece! */
+}
+
+.input1:focus {
+    border-color: #0095f6; /* Mantém a borda azul enquanto a pessoa digita */
+    background-color: white; /* Deixa o fundo branco para focar na leitura */
+}
+

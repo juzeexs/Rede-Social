@@ -10,12 +10,12 @@
 
     <header>
         <div class="nav-container">
-            <a href="#" class="logo">📚 LearnGram</a>
+            <a href="#" class="logo">📚 SENAI Connect</a>
             <div class="search-bar">
                 <input type="text" placeholder="Buscar trilhas, mentores ou tópicos...">
             </div>
             <div style="font-size: 1.2rem; cursor: pointer;">
-                🏠 📖 💬 👤
+                🏠 📖 💬 <span><a href="perfil.html">👤</a></span>
             </div>
         </div>
     </header>
@@ -52,7 +52,7 @@
                 
                 <div class="post-actions">
                     <span class="like-btn" onclick="toggleLike(this)">🤍</span>
-                    <span>💬</span>
+                     <span class="action-icon" onclick="abrirPainel(this)">💬</span>
                    
                 </div>
 
@@ -72,7 +72,7 @@
                 
                 <div class="post-actions">
                     <span class="like-btn" onclick="toggleLike(this)">🤍</span>
-                    <span>💬</span>
+                   <span class="action-icon" onclick="abrirPainel(this)">💬</span>
                    
                 </div>
 
@@ -101,7 +101,7 @@
                 <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&q=80" alt="Mentor 1">
                 <div class="suggestion-info">
                     <h4>Prof. Ana</h4>
-                    <p>Mentora de UX/UI</p>
+                    <p class="mentora1">Mentora de UX/UI</p>
                 </div>
                 <button class="follow-btn">Acompanhar</button>
             </div>
@@ -116,6 +116,25 @@
             </div>
         </aside>
     </main>
+
+<div id="comentarios-overlay" class="overlay" onclick="fecharPainel()"></div>
+
+    <div id="comentarios-painel" class="comments-panel">
+        <div class="panel-header">
+            <h3>Comentários</h3>
+            <span class="close-btn" onclick="fecharPainel()">X</span>
+        </div>
+        
+        <div id="lista-comentarios-painel" class="panel-content">
+        </div>
+        
+        <div class="panel-footer">
+            <input type="text" id="input-comentario-painel" placeholder="Adicione um comentário..." onkeypress="verificarEnterPainel(event)">
+            <button onclick="publicarComentarioPainel()">Publicar</button>
+        </div>
+    </div>
+
+
 
    <script src="script.js"></script>
 </body>
