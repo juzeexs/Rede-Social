@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nova Publicação - SENAI Connect</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .criar-post-container {
+            max-width: 600px;
+            margin: 100px auto 0;
+            padding: 20px;
+            background: white;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+        }
+        .criar-post-container h2 {
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+        }
+        .criar-post-container textarea {
+            width: 100%;
+            height: 120px;
+            padding: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            resize: none;
+            font-size: 0.95rem;
+            outline: none;
+            font-family: inherit;
+        }
+        .criar-post-container textarea:focus {
+            border-color: var(--primary-color);
+        }
+        .criar-post-container select {
+            width: 100%;
+            padding: 10px 12px;
+            margin: 12px 0;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            outline: none;
+            font-family: inherit;
+            cursor: pointer;
+        }
+        .criar-post-container input[type="text"] {
+            width: 100%;
+            padding: 10px 12px;
+            margin-bottom: 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            outline: none;
+            font-family: inherit;
+        }
+        .criar-post-container input[type="text"]:focus {
+            border-color: var(--primary-color);
+        }
+        .btn-publicar {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+        .btn-publicar:hover {
+            background-color: #0081d6;
+        }
+        .btn-publicar:disabled {
+            background-color: #b2dffc;
+            cursor: not-allowed;
+        }
+        #msg-erro {
+            color: red;
+            font-size: 0.85rem;
+            margin-bottom: 10px;
+        }
+        label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            display: block;
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="rede.html" class="logo">📚 SENAI Connect</a>
+            <div class="search-bar">
+                <input type="text" placeholder="Buscar trilhas, mentores ou tópicos...">
+            </div>
+            <div style="font-size: 1.2rem; cursor: pointer;">
+                <a href="rede.html" style="text-decoration: none;">🏠</a> 📖 💬 <a href="perfil.html" style="text-decoration: none;">👤</a>
+            </div>
+        </div>
+    </header>
+
+    <div class="criar-post-container">
+        <h2>✏️ Nova Publicação</h2>
+
+        <label>URL da imagem (opcional)</label>
+        <input type="text" id="input-imagem" placeholder="Cole o link de uma imagem (ex: https://...)">
+
+        <label>Texto do post</label>
+        <textarea id="input-texto" placeholder="O que você quer compartilhar com a turma?"></textarea>
+
+        <label>Tag</label>
+        <select id="input-tag">
+            <option value="Dica Digital 💡">Dica Digital 💡</option>
+            <option value="Procura-se Dupla 🤝">Procura-se Dupla 🤝</option>
+            <option value="Projeto 🚀">Projeto 🚀</option>
+            <option value="Dúvida ❓">Dúvida ❓</option>
+            <option value="Conquista 🏆">Conquista 🏆</option>
+        </select>
+
+        <div id="msg-erro"></div>
+
+        <button class="btn-publicar" id="btn-publicar" onclick="publicar()">Publicar</button>
+    </div>
+
+    <script type="module" src="criar-post.js"></script>
+</body>
+</html>

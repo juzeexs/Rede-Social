@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> - Aprenda e Colabore</title>
+    <title>SENAI Connect - Feed</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -14,91 +14,65 @@
             <div class="search-bar">
                 <input type="text" placeholder="Buscar trilhas, mentores ou tópicos...">
             </div>
-           
+            <div style="font-size: 1.2rem; cursor: pointer;">
+                🏠 📖 💬 <span><a href="perfil.html">👤</a></span>
+            </div>
         </div>
     </header>
-<!-- abrirStory("https://ijnet.org/sites/default/files/styles/full_width_node/public/story/2021-10/chris-ried-ieic5Tq8YMk-unsplash.jpg?h=0c24f139&itok=-PHiVj3I", "titulo")-->
+
     <main>
         <section class="feed">
-            
+
+            <!-- Stories -->
             <div class="stories-container">
-                <div class="story" onclick="abrirStory('https://ijnet.org/sites/default/files/styles/full_width_node/public/story/2021-10/chris-ried-ieic5Tq8YMk-unsplash.jpg?h=0c24f139&itok=-PHiVj3I')">
-                    <img src="https://ijnet.org/sites/default/files/styles/full_width_node/public/story/2021-10/chris-ried-ieic5Tq8YMk-unsplash.jpg?h=0c24f139&itok=-PHiVj3I" alt="Código" class="story-img">
+                <div class="story">
+                    <img src="https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?w=150&q=80" alt="Código" class="story-img">
                     <span class="story-title">HTML/CSS</span>
                 </div>
-                <div class="story" onclick="abrirStory('https://tecnoblog.net/responde/o-que-e-linguagem-de-programacao-conheca-as-mais-usadas-no-desenvolvimento-de-software/')">
+                <div class="story">
                     <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=150&q=80" alt="Estudos" class="story-img">
                     <span class="story-title">Foco 25min</span>
                 </div>
-                <div class="story" onclick="abrirStory('https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=150&q=80')">
+                <div class="story">
                     <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=150&q=80" alt="Tech" class="story-img">
                     <span class="story-title">Desafios JS</span>
                 </div>
-                <div class="story" onclick="abrirStory('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=150&q=80')">
+                <div class="story">
                     <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=150&q=80" alt="Anotações" class="story-img">
                     <span class="story-title">Mapas Ment.</span>
                 </div>
             </div>
 
-            <article class="post">
-                <div class="post-header">
-                    <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=50&q=80" alt="Avatar" class="post-avatar">
-                    <span class="post-user">dev_carlos</span>
-                    <span class="post-tag">Procura-se Dupla 🤝</span>
-                </div>
-                <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=800&q=80" alt="Post imagem" class="post-image">
-                
-                <div class="post-actions">
-                    <span class="like-btn" onclick="toggleLike(this)">🤍</span>
+            <!-- Botão de criar post -->
+            <div style="text-align: right; margin-bottom: 16px;">
+                <a href="criar-post.html" style="
+                    background-color: var(--primary-color);
+                    color: white;
+                    padding: 10px 20px;
+                    border-radius: 8px;
+                    text-decoration: none;
+                    font-weight: 600;
+                    font-size: 0.9rem;
+                ">+ Nova Publicação</a>
+            </div>
 
-                     <span class="action-icon" onclick="abrirPainel(this)">💬</span>
-                   
-
-                   
-                </div>
-
-                <div class="post-content">
-                    <span class="post-likes">Apoiado por 124 estudantes</span>
-                    <p><strong>dev_carlos</strong> Alguém afim de construir um projeto em React neste final de semana? A ideia é criar um app de To-Do list focado em produtividade. Nível iniciante/intermediário! Deixe um comentário ou mande DM. 👇 #colaboração #reactjs #pairprogramming</p>
-                </div>
-            </article>
-
-            <article class="post">
-                <div class="post-header">
-                    <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=50&q=80" alt="Avatar" class="post-avatar">
-                    <span class="post-user">mari_estuda</span>
-                    <span class="post-tag">Dica Digital 💡</span>
-                </div>
-                <img src="https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?w=800&q=80" alt="Post imagem" class="post-image">
-                
-                <div class="post-actions">
-                    <span class="like-btn" onclick="toggleLike(this)">🤍</span>
-
-                   <span class="action-icon" onclick="abrirPainel(this)">💬</span>
-
-                   
-
-                   
-                </div>
-
-                <div class="post-content">
-                    <span class="post-likes">Apoiado por 342 estudantes</span>
-                    <p><strong>mari_estuda</strong> 🔒 Boas práticas digitais: Você sabia que reutilizar senhas é o erro número 1 que compromete contas de estudantes? Usem um gerenciador de senhas! Qual vocês recomendam nos comentários? #cibersegurança #dicasTech</p>
-                </div>
-            </article>
+            <!-- Posts carregados do Firebase -->
+            <div id="feed-posts">
+                <p style="text-align:center; color: var(--text-muted); margin-top: 40px;">Carregando posts...</p>
+            </div>
 
         </section>
 
         <aside class="sidebar">
             <div class="suggestion-item">
-    <a href="perfil.html">
-        <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=100&q=80" alt="Seu Perfil">
-    </a>
-    <div class="suggestion-info">
-        <h4><a href="perfil.html" style="text-decoration: none; color: var(--text-main);" id="sidebar-nome">seu_usuario</a></h4>
-        <p id="sidebar-email">Iniciante em Front-end</p>
-    </div>
-</div>
+                <a href="perfil.html">
+                    <img src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=100&q=80" alt="Seu Perfil">
+                </a>
+                <div class="suggestion-info">
+                    <h4><a href="perfil.html" style="text-decoration: none; color: var(--text-main);" id="sidebar-nome">seu_usuario</a></h4>
+                    <p id="sidebar-email">Iniciante em Front-end</p>
+                </div>
+            </div>
 
             <h4 class="sidebar-title">Mentores e Grupos Sugeridos</h4>
 
@@ -122,50 +96,20 @@
         </aside>
     </main>
 
-<!----------------------storys----------------------------------------------->
-<div id="story-modal" class="story-overlay">
-        <div class="story-content">
-            <div class="story-progress-container">
-                <div id="story-progress-bar" class="story-progress-bar"></div>
-            </div>
-            
-            <div class="story-header">
-                <div class="story-user-info">
-                    <img id="story-avatar" src="" alt="Avatar do Story">
-                    <span id="story-username">Usuário</span>
-                </div>
-                <span class="close-story" onclick="fecharStory()">X</span>
-            </div>
-            
-            <img id="story-image" src="" alt="Imagem do Story">
-        </div>
-    </div>
-
-
-<!------------------------------------------------------------------------------------------>
-
-
-
-<div id="comentarios-overlay" class="overlay" onclick="fecharPainel()"></div>
-
+    <!-- Overlay e painel de comentários -->
+    <div id="comentarios-overlay" class="overlay" onclick="fecharPainel()"></div>
     <div id="comentarios-painel" class="comments-panel">
         <div class="panel-header">
             <h3>Comentários</h3>
             <span class="close-btn" onclick="fecharPainel()">X</span>
         </div>
-        
-        <div id="lista-comentarios-painel" class="panel-content">
-        </div>
-        
+        <div id="lista-comentarios-painel" class="panel-content"></div>
         <div class="panel-footer">
             <input type="text" id="input-comentario-painel" placeholder="Adicione um comentário..." onkeypress="verificarEnterPainel(event)">
             <button onclick="publicarComentarioPainel()">Publicar</button>
         </div>
     </div>
 
-
-
-   <script src="script.js"></script>
-
+    <script type="module" src="script.js"></script>
 </body>
 </html>

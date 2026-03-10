@@ -1,167 +1,184 @@
-  function toggleLike(element) {
-            element.classList.toggle('liked');
-            if(element.classList.contains('liked')) {
-                element.innerText = '❤️';
-            } else {
-                element.innerText = '🤍';
-            }
-        }
+import { db } from "./firebase.js";
+import { ref, get, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
+// ============================================
+// DADOS DO USUÁRIO LOGADO
+// ============================================
+const nomeUsuario = localStorage.getItem("usuarioNome");
+const emailUsuario = localStorage.getItem("usuarioEmail");
 
-// Executa quando a página rede.html terminar de carregar
-document.addEventListener('DOMContentLoaded', () => {
-    // Busca os dados salvos no login
-    const emailSalvo = localStorage.getItem('usuarioEmail');
-    const nomeSalvo = localStorage.getItem('usuarioNome');
-
-    if(emailSalvo) {
-        // Encontra os elementos na barra lateral da rede.html
-        const nomeElemento = document.querySelector('.sidebar .suggestion-info h4');
-        const emailElemento = document.querySelector('.sidebar .suggestion-info p');
-
-        // Atualiza os textos com os dados do usuário
-        if(nomeElemento) nomeElemento.textContent = nomeSalvo;
-        if(emailElemento) emailElemento.textContent = emailSalvo;
-    }
+// Atualiza sidebar com nome e email do usuário logado
+document.addEventListener("DOMContentLoaded", () => {
+    const sidebarNome = document.getElementById("sidebar-nome");
+    const sidebarEmail = document.getElementById("sidebar-email");
+    if (sidebarNome && nomeUsuario) sidebarNome.textContent = nomeUsuario;
+    if (sidebarEmail && emailUsuario) sidebarEmail.textContent = emailUsuario;
 });
 
-/**************filtro de censura de palavroes*********************** */
-function censurarMensagem(texto) {
-    // Adicione as palavras que deseja bloquear nesta lista
-    const palavrasProibidas = ['palavrao1', 'palavrao2', 'ofensa', 'xingamento']; 
-    let textoFiltrado = texto;
+// ============================================
+// CARREGA POSTS DO FIREBASE EM TEMPO REAL
+// ============================================
+const postsRef = ref(db, "posts");
 
-    palavrasProibidas.forEach(palavra => {
-        // Cria uma regra para achar a palavra exata, ignorando maiúsculas e minúsculas
-        const regex = new RegExp(`\\b${palavra}\\b`, 'gi');
-        textoFiltrado = textoFiltrado.replace(regex, '***');
+onValue(postsRef, (snapshot) => {
+    const feedDiv = document.getElementById("feed-posts");
+    feedDiv.innerHTML = "";
+
+    if (!snapshot.exists()) {
+        feedDiv.innerHTML = `<p style="text-align:center; color: var(--text-muted); margin-top: 40px;">
+            Nenhum post ainda. <a href="criar-post.html">Seja o primeiro a publicar!</a>
+        </p>`;
+        return;
+    }
+
+    // Converte os posts num array e inverte (mais recente primeiro)
+    const posts = [];
+    snapshot.forEach((child) => {
+        posts.push({ id: child.key, ...child.val() });
     });
+    posts.reverse();
 
+    posts.forEach((post) => {
+        feedDiv.innerHTML += criarCardPost(post);
+    });
+});
+
+// ============================================
+// MONTA O HTML DE CADA POST
+// ============================================
+function criarCardPost(post) {
+    const imagemHTML = post.imagem
+        ? `<img src="${post.imagem}" alt="Post imagem" class="post-image" onerror="this.style.display='none'">`
+        : "";
+
+    const dataFormatada = post.data
+        ? new Date(post.data).toLocaleDateString("pt-BR")
+        : "";
+
+    return `
+        <article class="post" data-id="${post.id}">
+            <div class="post-header">
+                <img src="https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=50&q=80" alt="Avatar" class="post-avatar">
+                <span class="post-user">${post.autorNome}</span>
+                <span class="post-tag">${post.tag}</span>
+            </div>
+
+            ${imagemHTML}
+
+            <div class="post-actions">
+                <span class="like-btn" onclick="toggleLike(this)">🤍</span>
+                <span class="action-icon" onclick="abrirPainel(this)">💬</span>
+            </div>
+
+            <div class="post-content">
+                <span class="post-likes">${post.likes || 0} curtidas</span>
+                <p><strong>${post.autorNome}</strong> ${post.texto}</p>
+                <span style="font-size:0.75rem; color: var(--text-muted);">${dataFormatada}</span>
+            </div>
+        </article>
+    `;
+}
+
+// ============================================
+// LIKE (local por enquanto)
+// ============================================
+window.toggleLike = function (element) {
+    element.classList.toggle("liked");
+    const postContent = element.closest(".post").querySelector(".post-likes");
+    const likesAtuais = parseInt(postContent.textContent) || 0;
+
+    if (element.classList.contains("liked")) {
+        element.innerText = "❤️";
+        postContent.textContent = `${likesAtuais + 1} curtidas`;
+    } else {
+        element.innerText = "🤍";
+        postContent.textContent = `${Math.max(0, likesAtuais - 1)} curtidas`;
+    }
+};
+
+// ============================================
+// FILTRO DE PALAVRÕES
+// ============================================
+function censurarMensagem(texto) {
+    const palavrasProibidas = ["palavrao1", "palavrao2", "ofensa", "xingamento"];
+    let textoFiltrado = texto;
+    palavrasProibidas.forEach((palavra) => {
+        const regex = new RegExp(`\\b${palavra}\\b`, "gi");
+        textoFiltrado = textoFiltrado.replace(regex, "***");
+    });
     return textoFiltrado;
 }
 
+// ============================================
+// PAINEL DE COMENTÁRIOS
+// ============================================
+let postAtualParaComentar = null;
 
-/********************************************************/
-// ====================================================
-// SISTEMA DE ABA LATERAL DE COMENTÁRIOS
-// ====================================================
+window.abrirPainel = function (icone) {
+    postAtualParaComentar = icone.closest(".post");
+    if (!postAtualParaComentar) return;
 
-let postAtualParaComentar = null; // ESSA LINHA É OBRIGATÓRIA AQUI FORA
+    const painel = document.getElementById("comentarios-painel");
+    const overlay = document.getElementById("comentarios-overlay");
+    const listaPainel = document.getElementById("lista-comentarios-painel");
 
-// 1. Abre o painel lateral
-function abrirPainel(icone) {
-    postAtualParaComentar = icone.closest('.post');
-    
-    // Se por acaso não achar o post, cria um aviso no console e para
-    if (!postAtualParaComentar) {
-        console.log("Erro: O ícone não está dentro de um post.");
-        return; 
-    }
-    
-    const painel = document.getElementById('comentarios-painel');
-    const overlay = document.getElementById('comentarios-overlay');
-    const listaPainel = document.getElementById('lista-comentarios-painel');
-    
-    // Procura a div invisível
-    let containerSalvo = postAtualParaComentar.querySelector('.comentarios-salvos');
-    
-    // Se a div invisível não existir no HTML, o JS cria ela automaticamente!
+    let containerSalvo = postAtualParaComentar.querySelector(".comentarios-salvos");
     if (!containerSalvo) {
-        containerSalvo = document.createElement('div');
-        containerSalvo.className = 'comentarios-salvos';
-        containerSalvo.style.display = 'none';
+        containerSalvo = document.createElement("div");
+        containerSalvo.className = "comentarios-salvos";
+        containerSalvo.style.display = "none";
         postAtualParaComentar.appendChild(containerSalvo);
     }
-    
-    // Copia os comentários salvos para a tela do painel
-    listaPainel.innerHTML = containerSalvo.innerHTML;
 
-    // Faz o painel deslizar para a tela
-    painel.classList.add('open');
-    overlay.style.display = 'block';
-}
+    listaPainel.innerHTML = containerSalvo.innerHTML || "<p style='color:var(--text-muted); font-size:0.85rem;'>Nenhum comentário ainda.</p>";
 
-// 2. Fecha o painel lateral
-function fecharPainel() {
-    document.getElementById('comentarios-painel').classList.remove('open');
-    document.getElementById('comentarios-overlay').style.display = 'none';
-    postAtualParaComentar = null; 
-}
+    painel.classList.add("open");
+    overlay.style.display = "block";
+};
 
-// 3. Publica o comentário
-function publicarComentarioPainel() {
-    if (!postAtualParaComentar) return; 
-    
-    const input = document.getElementById('input-comentario-painel');
+window.fecharPainel = function () {
+    document.getElementById("comentarios-painel").classList.remove("open");
+    document.getElementById("comentarios-overlay").style.display = "none";
+    postAtualParaComentar = null;
+};
+
+window.publicarComentarioPainel = function () {
+    if (!postAtualParaComentar) return;
+
+    const input = document.getElementById("input-comentario-painel");
     let textoComentario = input.value.trim();
-    
-    if (textoComentario !== '') {
-        const nomeSalvo = localStorage.getItem('usuarioNome') || 'Você';
-        
-        // Aplica a censura (a função censurarMensagem já está no seu arquivo)
-        if (typeof censurarMensagem === "function") {
-            textoComentario = censurarMensagem(textoComentario);
-        }
-        
-        const novoComentarioHTML = `<p><b>${nomeSalvo}</b> ${textoComentario}</p>`;
-        
-        document.getElementById('lista-comentarios-painel').innerHTML += novoComentarioHTML;
-        postAtualParaComentar.querySelector('.comentarios-salvos').innerHTML += novoComentarioHTML;
-        
-        input.value = '';
-    }
-}
 
-// 4. Permite publicar apertando Enter
-function verificarEnterPainel(event) {
-    if (event.key === 'Enter') {
+    if (textoComentario !== "") {
+        const nome = nomeUsuario || "Você";
+        textoComentario = censurarMensagem(textoComentario);
+
+        const novoHTML = `<p><b>${nome}</b> ${textoComentario}</p>`;
+
+        const listaPainel = document.getElementById("lista-comentarios-painel");
+
+        // Limpa o "nenhum comentário ainda" se existir
+        if (listaPainel.querySelector("p[style]")) {
+            listaPainel.innerHTML = "";
+        }
+
+        listaPainel.innerHTML += novoHTML;
+
+        let containerSalvo = postAtualParaComentar.querySelector(".comentarios-salvos");
+        if (!containerSalvo) {
+            containerSalvo = document.createElement("div");
+            containerSalvo.className = "comentarios-salvos";
+            containerSalvo.style.display = "none";
+            postAtualParaComentar.appendChild(containerSalvo);
+        }
+        containerSalvo.innerHTML += novoHTML;
+
+        input.value = "";
+    }
+};
+
+window.verificarEnterPainel = function (event) {
+    if (event.key === "Enter") {
         event.preventDefault();
         publicarComentarioPainel();
     }
-}
-
-
-// ====================================================
-// SISTEMA DE STORIES
-// ====================================================
-
-let tempoStory; // Variável para controlar o temporizador
-
-function abrirStory(imagemUrl, titulo) {
-    const modal = document.getElementById('story-modal');
-    const imgStory = document.getElementById('story-image');
-    const avatarStory = document.getElementById('story-avatar');
-    const tituloStory = document.getElementById('story-username');
-    const barraProgresso = document.getElementById('story-progress-bar');
-
-    // 1. Coloca a imagem e o texto corretos no modal
-    imgStory.src = imagemUrl;
-    avatarStory.src = imagemUrl; // Usando a mesma imagem pro avatar para simplificar
-    tituloStory.textContent = titulo;
-
-    // 2. Mostra o modal
-    modal.style.display = 'flex';
-
-    // 3. Reseta a barra de progresso para 0% e tira animações velhas
-    barraProgresso.style.transition = 'none';
-    barraProgresso.style.width = '0%';
-
-    // 4. Inicia a animação de preenchimento após um pequeno atraso (para o CSS reconhecer o 0%)
-    setTimeout(() => {
-        // Duração do story: 5 segundos (5000ms)
-        barraProgresso.style.transition = 'width 5s linear';
-        barraProgresso.style.width = '100%';
-    }, 50);
-
-    // 5. Agenda o fechamento automático do story após 5 segundos
-    clearTimeout(tempoStory); // Limpa temporizadores antigos se o usuário clicar rápido
-    tempoStory = setTimeout(() => {
-        fecharStory();
-    }, 5000);
-}
-
-function fecharStory() {
-    const modal = document.getElementById('story-modal');
-    modal.style.display = 'none';
-    clearTimeout(tempoStory); // Para o relógio caso o usuário feche no X antes de acabar
-}
+};
