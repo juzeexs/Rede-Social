@@ -1,37 +1,40 @@
-document.getElementById('cadastroForm').addEventListener('submit', function(event) {
-    event.preventDefault(); // Evita que a página recarregue
+import { db } from "./firebase.js";
+import { ref, push, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
-    // Pega os valores digitados no cadastro
-    const nomeNovo = document.getElementById('nome').value.trim();
-    const emailNovo = document.getElementById('email').value.trim();
-    const senhaNova = document.getElementById('password').value.trim();
-    
+document.getElementById('cadastroForm').addEventListener('submit', function(event) {
+
+    event.preventDefault();
+
+    const nome = document.getElementById('nome').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const senha = document.getElementById('password').value.trim();
+
     const errorDiv = document.getElementById('error-message');
     errorDiv.textContent = '';
-    errorDiv.style.color = 'red';
 
-    // Verificações
-    if (nomeNovo === '' || emailNovo === '' || senhaNova === '') {
-        errorDiv.textContent = 'Erro: Preencha todos os campos.';
+    if (nome === '' || email === '' || senha === '') {
+        errorDiv.textContent = 'Preencha todos os campos.';
         return;
     }
 
-    if (!emailNovo.toLowerCase().endsWith('@aluno.senai.br')) {
-        errorDiv.textContent = 'Erro: O e-mail deve terminar com @aluno.senai.br';
+    if (senha.length < 6) {
+        errorDiv.textContent = 'A senha deve ter no mínimo 6 caracteres.';
         return;
     }
 
-    if (senhaNova.length < 6) {
-        errorDiv.textContent = 'Erro: A senha deve ter pelo menos 6 caracteres.';
-        return;
-    }
+    const usuariosRef = ref(db, "usuarios");
+    const novoUsuario = push(usuariosRef);
 
-    // A MÁGICA AQUI: Salva os dados na memória (localStorage)
-    localStorage.setItem('nomeCadastrado', nomeNovo);
-    localStorage.setItem('emailCadastrado', emailNovo);
-    localStorage.setItem('senhaCadastrada', senhaNova);
+    set(novoUsuario, {
+        nome: nome,
+        email: email,
+        senha: senha
+    }).then(() => {
+        alert("Cadastro realizado com sucesso!");
+        window.location.href = "index.html";
+    }).catch((error) => {
+        errorDiv.textContent = "Erro ao cadastrar. Tente novamente.";
+        console.error(error);
+    });
 
-    // Avisa que deu certo e manda para a tela de login
-    alert('Cadastro realizado com sucesso! Agora faça seu login.');
-    window.location.href = 'index.html'; 
 });
