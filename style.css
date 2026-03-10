@@ -313,3 +313,85 @@
     margin-left: 10px; 
     cursor: pointer; 
 }    
+
+
+/* ========================================== */
+/* ESTILOS DO MODAL DE STORY                  */
+/* ========================================== */
+
+.story-overlay {
+    display: none; /* Escondido por padrão */
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.9); /* Fundo bem escuro */
+    z-index: 2000; /* Fica acima de tudo, inclusive do header */
+    justify-content: center;
+    align-items: center;
+}
+
+.story-content {
+    position: relative;
+    width: 100%;
+    max-width: 400px; /* Largura parecida com celular */
+    height: 85vh;
+    background: #262626;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.story-progress-container {
+    width: 96%;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.3);
+    position: absolute;
+    top: 10px; left: 2%;
+    border-radius: 3px;
+    z-index: 10;
+    overflow: hidden;
+}
+
+.story-progress-bar {
+    height: 100%;
+    background: white;
+    width: 0%; /* O JS vai animar isso de 0% a 100% */
+}
+
+.story-header {
+    position: absolute;
+    top: 25px; left: 15px; right: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.8); /* Sombrinha para ler melhor */
+}
+
+.story-user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.story-user-info img {
+    width: 35px; height: 35px;
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+.close-story {
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+#story-image {
+    width: 100%; height: 100%;
+    object-fit: cover; /* Faz a imagem preencher a tela sem distorcer */
+}
+
+
+

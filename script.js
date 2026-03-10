@@ -120,3 +120,48 @@ function verificarEnterPainel(event) {
     }
 }
 
+
+// ====================================================
+// SISTEMA DE STORIES
+// ====================================================
+
+let tempoStory; // Variável para controlar o temporizador
+
+function abrirStory(imagemUrl, titulo) {
+    const modal = document.getElementById('story-modal');
+    const imgStory = document.getElementById('story-image');
+    const avatarStory = document.getElementById('story-avatar');
+    const tituloStory = document.getElementById('story-username');
+    const barraProgresso = document.getElementById('story-progress-bar');
+
+    // 1. Coloca a imagem e o texto corretos no modal
+    imgStory.src = imagemUrl;
+    avatarStory.src = imagemUrl; // Usando a mesma imagem pro avatar para simplificar
+    tituloStory.textContent = titulo;
+
+    // 2. Mostra o modal
+    modal.style.display = 'flex';
+
+    // 3. Reseta a barra de progresso para 0% e tira animações velhas
+    barraProgresso.style.transition = 'none';
+    barraProgresso.style.width = '0%';
+
+    // 4. Inicia a animação de preenchimento após um pequeno atraso (para o CSS reconhecer o 0%)
+    setTimeout(() => {
+        // Duração do story: 5 segundos (5000ms)
+        barraProgresso.style.transition = 'width 5s linear';
+        barraProgresso.style.width = '100%';
+    }, 50);
+
+    // 5. Agenda o fechamento automático do story após 5 segundos
+    clearTimeout(tempoStory); // Limpa temporizadores antigos se o usuário clicar rápido
+    tempoStory = setTimeout(() => {
+        fecharStory();
+    }, 5000);
+}
+
+function fecharStory() {
+    const modal = document.getElementById('story-modal');
+    modal.style.display = 'none';
+    clearTimeout(tempoStory); // Para o relógio caso o usuário feche no X antes de acabar
+}

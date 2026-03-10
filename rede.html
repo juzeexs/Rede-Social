@@ -14,29 +14,27 @@
             <div class="search-bar">
                 <input type="text" placeholder="Buscar trilhas, mentores ou tópicos...">
             </div>
-            <div style="font-size: 1.2rem; cursor: pointer;">
-                🏠 📖 💬 <span><a href="perfil.html">👤</a></span>
-            </div>
+           
         </div>
     </header>
-
+<!-- abrirStory("https://ijnet.org/sites/default/files/styles/full_width_node/public/story/2021-10/chris-ried-ieic5Tq8YMk-unsplash.jpg?h=0c24f139&itok=-PHiVj3I", "titulo")-->
     <main>
         <section class="feed">
             
             <div class="stories-container">
-                <div class="story">
-                    <img src="https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?w=150&q=80" alt="Código" class="story-img">
+                <div class="story" onclick="abrirStory('https://ijnet.org/sites/default/files/styles/full_width_node/public/story/2021-10/chris-ried-ieic5Tq8YMk-unsplash.jpg?h=0c24f139&itok=-PHiVj3I')">
+                    <img src="https://ijnet.org/sites/default/files/styles/full_width_node/public/story/2021-10/chris-ried-ieic5Tq8YMk-unsplash.jpg?h=0c24f139&itok=-PHiVj3I" alt="Código" class="story-img">
                     <span class="story-title">HTML/CSS</span>
                 </div>
-                <div class="story">
+                <div class="story" onclick="abrirStory('https://tecnoblog.net/responde/o-que-e-linguagem-de-programacao-conheca-as-mais-usadas-no-desenvolvimento-de-software/')">
                     <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=150&q=80" alt="Estudos" class="story-img">
                     <span class="story-title">Foco 25min</span>
                 </div>
-                <div class="story">
+                <div class="story" onclick="abrirStory('https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=150&q=80')">
                     <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=150&q=80" alt="Tech" class="story-img">
                     <span class="story-title">Desafios JS</span>
                 </div>
-                <div class="story">
+                <div class="story" onclick="abrirStory('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=150&q=80')">
                     <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=150&q=80" alt="Anotações" class="story-img">
                     <span class="story-title">Mapas Ment.</span>
                 </div>
@@ -54,7 +52,7 @@
                     <span class="like-btn" onclick="toggleLike(this)">🤍</span>
 
                      <span class="action-icon" onclick="abrirPainel(this)">💬</span>
-                    <span>💬</span>
+                   
 
                    
                 </div>
@@ -78,7 +76,7 @@
 
                    <span class="action-icon" onclick="abrirPainel(this)">💬</span>
 
-                    <span>💬</span>
+                   
 
                    
                 </div>
@@ -124,6 +122,29 @@
         </aside>
     </main>
 
+<!----------------------storys----------------------------------------------->
+<div id="story-modal" class="story-overlay">
+        <div class="story-content">
+            <div class="story-progress-container">
+                <div id="story-progress-bar" class="story-progress-bar"></div>
+            </div>
+            
+            <div class="story-header">
+                <div class="story-user-info">
+                    <img id="story-avatar" src="" alt="Avatar do Story">
+                    <span id="story-username">Usuário</span>
+                </div>
+                <span class="close-story" onclick="fecharStory()">X</span>
+            </div>
+            
+            <img id="story-image" src="" alt="Imagem do Story">
+        </div>
+    </div>
+
+
+<!------------------------------------------------------------------------------------------>
+
+
 
 <div id="comentarios-overlay" class="overlay" onclick="fecharPainel()"></div>
 
@@ -145,8 +166,6 @@
 
 
    <script src="script.js"></script>
-
-   <script type="module" src="script.js"></script>
 
 </body>
 </html>
