@@ -182,3 +182,55 @@ window.verificarEnterPainel = function (event) {
         publicarComentarioPainel();
     }
 };
+
+
+
+
+
+/****************STORYS DO SITE, NAO! "TOQUE!"*********************************** */
+
+// ============================================
+// SISTEMA DE STORIES (SIMPLIFICADO)
+// ============================================
+let storyTimer;
+let progressoStory = 0;
+
+window.abrirStory = function (imgUrl) {
+    const overlay = document.getElementById("story-overlay");
+    const storyImg = document.getElementById("story-image");
+    const progressBar = document.getElementById("story-progress-bar");
+    const storyUsername = document.getElementById("story-username");
+    const storyAvatar = document.getElementById("story-avatar");
+
+    // 1. Define a imagem principal do story com a URL que você passou
+    storyImg.src = imgUrl;
+
+    // 2. Define um usuário padrão para o cabeçalho (já que passamos só a URL)
+    if(storyUsername) storyUsername.textContent = "SENAI Connect";
+    if(storyAvatar) storyAvatar.src = "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=50&q=80";
+
+    // 3. Exibe o modal na tela
+    overlay.style.display = "flex";
+
+    // 4. Zera a barra de progresso e limpa timers antigos
+    progressoStory = 0;
+    progressBar.style.width = "0%";
+    clearInterval(storyTimer);
+
+    // 5. Inicia o Timer da barrinha (Dura 5 segundos no total)
+    storyTimer = setInterval(() => {
+        progressoStory += 1;
+        progressBar.style.width = progressoStory + "%";
+
+        // Quando bater 100%, fecha o story sozinho
+        if (progressoStory >= 100) {
+            fecharStory();
+        }
+    }, 50); 
+};
+
+window.fecharStory = function () {
+    const overlay = document.getElementById("story-overlay");
+    overlay.style.display = "none";
+    clearInterval(storyTimer); // Desliga o cronômetro
+};

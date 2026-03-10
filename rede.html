@@ -23,27 +23,25 @@
     <main>
         <section class="feed">
 
-            <!-- Stories -->
             <div class="stories-container">
-                <div class="story">
+                <div class="story" onclick="abrirStory('https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?w=800&q=80')">
                     <img src="https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?w=150&q=80" alt="Código" class="story-img">
                     <span class="story-title">HTML/CSS</span>
                 </div>
-                <div class="story">
+                <div class="story" onclick="abrirStory('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80')">
                     <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=150&q=80" alt="Estudos" class="story-img">
                     <span class="story-title">Foco 25min</span>
                 </div>
-                <div class="story">
+                <div class="story" onclick="abrirStory('https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80')" >
                     <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=150&q=80" alt="Tech" class="story-img">
                     <span class="story-title">Desafios JS</span>
                 </div>
-                <div class="story">
+                <div class="story"  onclick="abrirStory('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80')">
                     <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=150&q=80" alt="Anotações" class="story-img">
                     <span class="story-title">Mapas Ment.</span>
                 </div>
             </div>
 
-            <!-- Botão de criar post -->
             <div style="text-align: right; margin-bottom: 16px;">
                 <a href="criar-post.html" style="
                     background-color: var(--primary-color);
@@ -56,7 +54,6 @@
                 ">+ Nova Publicação</a>
             </div>
 
-            <!-- Posts carregados do Firebase -->
             <div id="feed-posts">
                 <p style="text-align:center; color: var(--text-muted); margin-top: 40px;">Carregando posts...</p>
             </div>
@@ -96,7 +93,6 @@
         </aside>
     </main>
 
-    <!-- Overlay e painel de comentários -->
     <div id="comentarios-overlay" class="overlay" onclick="fecharPainel()"></div>
     <div id="comentarios-painel" class="comments-panel">
         <div class="panel-header">
@@ -107,6 +103,22 @@
         <div class="panel-footer">
             <input type="text" id="input-comentario-painel" placeholder="Adicione um comentário..." onkeypress="verificarEnterPainel(event)">
             <button onclick="publicarComentarioPainel()">Publicar</button>
+        </div>
+    </div>
+
+    <div id="story-overlay" class="story-overlay" onclick="if(event.target === this) fecharStory()">
+        <div class="story-content">
+            <div class="story-progress-container">
+                <div id="story-progress-bar" class="story-progress-bar"></div>
+            </div>
+            <div class="story-header">
+                <div class="story-user-info">
+                    <img id="story-avatar" src="" alt="Avatar">
+                    <span id="story-username"></span>
+                </div>
+                <span class="close-story" onclick="fecharStory()">X</span>
+            </div>
+            <img id="story-image" src="" alt="Story">
         </div>
     </div>
 
