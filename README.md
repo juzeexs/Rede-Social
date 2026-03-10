@@ -73,9 +73,11 @@ Este projeto foi desenvolvido como atividade prática de disciplina no **Institu
 
 | Nome | Função |
 |---|---|
-| *(José Vítor - Tiago )* | Desenvolvimento Front-end / Full-stack |
+| *(José Vítor - Tiago - Bruno )* | Desenvolvimento Front-end / Full-stack |
 | *(Tiago)* | *(Front - End)* |
-| *(José Vítor)* | *(Back - End)* |
+| *(Bruno Silva)* | *(Back - End)* |
+| *(José Vitor)* | *(Full-Stack)* |
+
 
 ---
 
