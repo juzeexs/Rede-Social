@@ -1,4 +1,4 @@
-import { db } from "./firebase.js";
+import { db } from "../firebase.js";
 import { ref, get } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
 document.getElementById('loginForm').addEventListener('submit', function(event) {
@@ -28,9 +28,9 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
                     usuarioEncontrado = true;
 
                     localStorage.setItem("usuarioNome", usuario.nome);
-                    localStorage.setItem("usuarioEmail", usuario.email); // ← CORREÇÃO: salva o email também
+                    localStorage.setItem("usuarioEmail", usuario.email);
 
-                    window.location.href = "rede.html";
+                    window.location.href = "/public/rede.html";
                 }
             });
 
@@ -48,3 +48,35 @@ document.getElementById('loginForm').addEventListener('submit', function(event) 
     });
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

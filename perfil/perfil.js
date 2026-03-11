@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Se a pessoa não estiver logada, manda de volta para o index
     if (!nomeSalvo || !emailSalvo) {
-        window.location.href = 'index.html';
+        window.location.href = '/login/index.html';
         return;
     }
 

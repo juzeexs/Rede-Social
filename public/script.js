@@ -1,5 +1,5 @@
-import { db } from "./firebase.js";
-import { ref, get, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+import { db } from "../firebase.js";
+import { ref, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
 // ============================================
 // DADOS DO USUÁRIO LOGADO
@@ -13,6 +13,11 @@ document.addEventListener("DOMContentLoaded", () => {
     const sidebarEmail = document.getElementById("sidebar-email");
     if (sidebarNome && nomeUsuario) sidebarNome.textContent = nomeUsuario;
     if (sidebarEmail && emailUsuario) sidebarEmail.textContent = emailUsuario;
+
+    // Foto de perfil salva
+    const fotoSalva = localStorage.getItem('usuarioFoto');
+    const sidebarFoto = document.getElementById('sidebar-foto-perfil');
+    if (fotoSalva && sidebarFoto) sidebarFoto.src = fotoSalva;
 });
 
 // ============================================
@@ -26,12 +31,11 @@ onValue(postsRef, (snapshot) => {
 
     if (!snapshot.exists()) {
         feedDiv.innerHTML = `<p style="text-align:center; color: var(--text-muted); margin-top: 40px;">
-            Nenhum post ainda. <a href="criar-post.html">Seja o primeiro a publicar!</a>
+            Nenhum post ainda. <a href="/criar_post/criar-post.html">Seja o primeiro a publicar!</a>
         </p>`;
         return;
     }
 
-    // Converte os posts num array e inverte (mais recente primeiro)
     const posts = [];
     snapshot.forEach((child) => {
         posts.push({ id: child.key, ...child.val() });
@@ -80,7 +84,7 @@ function criarCardPost(post) {
 }
 
 // ============================================
-// LIKE (local por enquanto)
+// LIKE (local)
 // ============================================
 window.toggleLike = function (element) {
     element.classList.toggle("liked");
@@ -153,10 +157,8 @@ window.publicarComentarioPainel = function () {
         textoComentario = censurarMensagem(textoComentario);
 
         const novoHTML = `<p><b>${nome}</b> ${textoComentario}</p>`;
-
         const listaPainel = document.getElementById("lista-comentarios-painel");
 
-        // Limpa o "nenhum comentário ainda" se existir
         if (listaPainel.querySelector("p[style]")) {
             listaPainel.innerHTML = "";
         }
@@ -171,7 +173,6 @@ window.publicarComentarioPainel = function () {
             postAtualParaComentar.appendChild(containerSalvo);
         }
         containerSalvo.innerHTML += novoHTML;
-
         input.value = "";
     }
 };
@@ -183,14 +184,8 @@ window.verificarEnterPainel = function (event) {
     }
 };
 
-
-
-
-
-/****************STORYS DO SITE, NAO! "TOQUE!"*********************************** */
-
 // ============================================
-// SISTEMA DE STORIES (SIMPLIFICADO)
+// SISTEMA DE STORIES
 // ============================================
 let storyTimer;
 let progressoStory = 0;
@@ -202,47 +197,32 @@ window.abrirStory = function (imgUrl) {
     const storyUsername = document.getElementById("story-username");
     const storyAvatar = document.getElementById("story-avatar");
 
-    // 1. Define a imagem principal do story com a URL que você passou
     storyImg.src = imgUrl;
-
-    // 2. Define um usuário padrão para o cabeçalho (já que passamos só a URL)
     if(storyUsername) storyUsername.textContent = "SENAI Connect";
     if(storyAvatar) storyAvatar.src = "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=50&q=80";
 
-    // 3. Exibe o modal na tela
     overlay.style.display = "flex";
-
-    // 4. Zera a barra de progresso e limpa timers antigos
     progressoStory = 0;
     progressBar.style.width = "0%";
     clearInterval(storyTimer);
 
-    // 5. Inicia o Timer da barrinha (Dura 5 segundos no total)
     storyTimer = setInterval(() => {
         progressoStory += 1;
         progressBar.style.width = progressoStory + "%";
-
-        // Quando bater 100%, fecha o story sozinho
-        if (progressoStory >= 100) {
-            fecharStory();
-        }
-    }, 50); 
+        if (progressoStory >= 100) fecharStory();
+    }, 50);
 };
 
 window.fecharStory = function () {
-    const overlay = document.getElementById("story-overlay");
-    overlay.style.display = "none";
-    clearInterval(storyTimer); // Desliga o cronômetro
+    document.getElementById("story-overlay").style.display = "none";
+    clearInterval(storyTimer);
 };
 
-
 // ============================================
-// SISTEMA DE BUSCA DE USUÁRIOS (TIPO INSTAGRAM)
+// SISTEMA DE BUSCA
 // ============================================
-
-// Banco de dados simulado (Você pode trocar por dados do Firebase depois)
 const usuariosBuscaMock = [
-    { nome: "Prof. Ana", subtitulo: "Mentora de UX/UI", foto: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&q=80", link: "perfil.html" },
+    { nome: "Prof. Ana", subtitulo: "Mentora de UX/UI", foto: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&q=80", link: "/perfil/perfil.html" },
     { nome: "Clube do Python", subtitulo: "Comunidade • 5k membros", foto: "https://images.unsplash.com/photo-1506869640319-fe1a24fd76dc?w=100&q=80", link: "#" },
     { nome: "Carlos Dev", subtitulo: "Aluno de Front-end", foto: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&q=80", link: "#" },
     { nome: "Mariana Silva", subtitulo: "Professora de Back-end", foto: "https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=100&q=80", link: "#" }
@@ -253,24 +233,20 @@ document.addEventListener("DOMContentLoaded", () => {
     const caixaResultados = document.getElementById("resultados-busca");
 
     if (inputBusca && caixaResultados) {
-        // Escuta o evento de digitação no input
         inputBusca.addEventListener("input", (e) => {
             const termo = e.target.value.toLowerCase().trim();
-            
-            // Se o input estiver vazio, esconde a caixa
+
             if (termo.length === 0) {
                 caixaResultados.style.display = "none";
                 caixaResultados.innerHTML = "";
                 return;
             }
 
-            // Filtra os usuários pelo nome ou subtítulo
-            const resultados = usuariosBuscaMock.filter(user => 
-                user.nome.toLowerCase().includes(termo) || 
+            const resultados = usuariosBuscaMock.filter(user =>
+                user.nome.toLowerCase().includes(termo) ||
                 user.subtitulo.toLowerCase().includes(termo)
             );
 
-            // Monta o HTML com os resultados
             if (resultados.length > 0) {
                 caixaResultados.innerHTML = resultados.map(user => `
                     <a href="${user.link}" class="resultado-item">
@@ -282,18 +258,15 @@ document.addEventListener("DOMContentLoaded", () => {
                     </a>
                 `).join('');
             } else {
-                // Se não achar ninguém
                 caixaResultados.innerHTML = `
                     <div class="resultado-item" style="justify-content: center; cursor: default;">
                         <p style="color: var(--text-muted); margin: 0;">Nenhum usuário encontrado.</p>
                     </div>`;
             }
-            
-            // Mostra a caixa
+
             caixaResultados.style.display = "block";
         });
 
-        // Fecha a caixa de resultados se o usuário clicar em qualquer outro lugar da tela
         document.addEventListener("click", (e) => {
             if (!e.target.closest('.search-bar')) {
                 caixaResultados.style.display = "none";

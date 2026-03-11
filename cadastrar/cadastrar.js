@@ -1,4 +1,4 @@
-import { db } from "./firebase.js";
+import { db } from "../firebase.js";
 import { ref, push, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
 
 document.getElementById('cadastroForm').addEventListener('submit', function(event) {
@@ -31,7 +31,7 @@ document.getElementById('cadastroForm').addEventListener('submit', function(even
         senha: senha
     }).then(() => {
         alert("Cadastro realizado com sucesso!");
-        window.location.href = "index.html";
+        window.location.href = "/login/index.html";
     }).catch((error) => {
         errorDiv.textContent = "Erro ao cadastrar. Tente novamente.";
         console.error(error);
