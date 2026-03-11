@@ -203,7 +203,7 @@
 
 .img6{
     border-radius: 20px;
-    
+
 
 
 }
@@ -211,7 +211,46 @@
 
 
 
+/* ========================================== */
+/* MODAL DE VISUALIZAÇÃO DE IMAGEM            */
+/* ========================================== */
 
+.image-modal {
+    display: none; /* Fica escondido até o JS ativar */
+    position: fixed;
+    z-index: 2000; /* Fica por cima de tudo no site */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.85); /* Fundo escuro transparente */
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.modal-content {
+    max-width: 90%;
+    max-height: 85vh; /* Não deixa a imagem passar do tamanho da tela */
+    border-radius: 8px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    object-fit: contain;
+}
+
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.close-modal:hover {
+    color: #bbb;
+}
 
 
 
