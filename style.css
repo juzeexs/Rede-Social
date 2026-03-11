@@ -394,4 +394,64 @@
 }
 
 
+/* ========================================== */
+/* ESTILOS DA BUSCA DE USUÁRIOS (DROPDOWN)    */
+/* ========================================== */
 
+.resultados-busca {
+    display: none; /* Escondido até o usuário digitar algo */
+    position: absolute;
+    top: 40px; /* Fica logo abaixo do input */
+    left: 0;
+    width: 100%;
+    background-color: white;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.resultado-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border-color);
+    text-decoration: none;
+    color: var(--text-main);
+    transition: background-color 0.2s;
+}
+
+.resultado-item:last-child {
+    border-bottom: none;
+}
+
+.resultado-item:hover {
+    background-color: #f8f9fa;
+}
+
+.resultado-item img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 12px;
+    object-fit: cover;
+}
+
+.resultado-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.resultado-info h4 {
+    font-size: 0.85rem;
+    margin: 0 0 2px 0;
+}
+
+.resultado-info p {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin: 0;
+}

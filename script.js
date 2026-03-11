@@ -234,3 +234,70 @@ window.fecharStory = function () {
     overlay.style.display = "none";
     clearInterval(storyTimer); // Desliga o cronômetro
 };
+
+
+// ============================================
+// SISTEMA DE BUSCA DE USUÁRIOS (TIPO INSTAGRAM)
+// ============================================
+
+// Banco de dados simulado (Você pode trocar por dados do Firebase depois)
+const usuariosBuscaMock = [
+    { nome: "Prof. Ana", subtitulo: "Mentora de UX/UI", foto: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&q=80", link: "perfil.html" },
+    { nome: "Clube do Python", subtitulo: "Comunidade • 5k membros", foto: "https://images.unsplash.com/photo-1506869640319-fe1a24fd76dc?w=100&q=80", link: "#" },
+    { nome: "Carlos Dev", subtitulo: "Aluno de Front-end", foto: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&q=80", link: "#" },
+    { nome: "Mariana Silva", subtitulo: "Professora de Back-end", foto: "https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=100&q=80", link: "#" }
+];
+
+document.addEventListener("DOMContentLoaded", () => {
+    const inputBusca = document.getElementById("input-busca");
+    const caixaResultados = document.getElementById("resultados-busca");
+
+    if (inputBusca && caixaResultados) {
+        // Escuta o evento de digitação no input
+        inputBusca.addEventListener("input", (e) => {
+            const termo = e.target.value.toLowerCase().trim();
+            
+            // Se o input estiver vazio, esconde a caixa
+            if (termo.length === 0) {
+                caixaResultados.style.display = "none";
+                caixaResultados.innerHTML = "";
+                return;
+            }
+
+            // Filtra os usuários pelo nome ou subtítulo
+            const resultados = usuariosBuscaMock.filter(user => 
+                user.nome.toLowerCase().includes(termo) || 
+                user.subtitulo.toLowerCase().includes(termo)
+            );
+
+            // Monta o HTML com os resultados
+            if (resultados.length > 0) {
+                caixaResultados.innerHTML = resultados.map(user => `
+                    <a href="${user.link}" class="resultado-item">
+                        <img src="${user.foto}" alt="${user.nome}">
+                        <div class="resultado-info">
+                            <h4>${user.nome}</h4>
+                            <p>${user.subtitulo}</p>
+                        </div>
+                    </a>
+                `).join('');
+            } else {
+                // Se não achar ninguém
+                caixaResultados.innerHTML = `
+                    <div class="resultado-item" style="justify-content: center; cursor: default;">
+                        <p style="color: var(--text-muted); margin: 0;">Nenhum usuário encontrado.</p>
+                    </div>`;
+            }
+            
+            // Mostra a caixa
+            caixaResultados.style.display = "block";
+        });
+
+        // Fecha a caixa de resultados se o usuário clicar em qualquer outro lugar da tela
+        document.addEventListener("click", (e) => {
+            if (!e.target.closest('.search-bar')) {
+                caixaResultados.style.display = "none";
+            }
+        });
+    }
+});
