@@ -1,12 +1,16 @@
- /* Estilos Base e Variáveis */
-        :root {
-            --bg-color: #fafafa;
-            --border-color: #dbdbdb;
-            --text-main: #262626;
-            --text-muted: #8e8e8e;
-            --primary-color: #0095f6;
-            --heart-color: #ed4956;
-        }
+ /* Estilos Base e Variáveis - TEMA SENAI 2026 */
+:root {
+    --bg-color: #F8F9FA;         /* Fundo cinza super claro, mais moderno */
+    --border-color: #E0E0E0;     /* Bordas sutis */
+    --text-main: #1A1A1A;        /* Quase preto, excelente para leitura */
+    --text-muted: #6C757D;       /* Cinza para textos secundários */
+    
+    /* Cores Oficiais SENAI */
+    --primary-color: #004A8D;    /* Azul institucional profundo */
+    --secondary-color: #E3000F;  /* Vermelho vibrante SENAI */
+    --accent-color: #0072CE;     /* Azul claro para hover/destaques */
+    --heart-color: #E3000F;      /* Corações no vermelho SENAI */
+}
 
         * {
             margin: 0;

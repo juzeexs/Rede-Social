@@ -83,3 +83,32 @@ window.fecharModalImagem = function(event) {
         modal.style.display = "none";
     }
 };
+
+/********************muda a foto da pessoa para a que voce clicou na barra de pesquisa**************************************** */
+
+document.addEventListener("DOMContentLoaded", () => {
+    // 1. Pega os parâmetros da URL
+    const parametrosUrl = new URLSearchParams(window.location.search);
+    const usuarioClicado = parametrosUrl.get("usuario");
+
+    // 2. Elementos da tela de perfil (certifique-se de que os IDs existam no seu perfil.html)
+    const nomePerfilElemento = document.getElementById("nome-do-perfil");
+    const fotoPerfilElemento = document.getElementById("foto-do-perfil");
+    const bioPerfilElemento = document.getElementById("bio-do-perfil");
+
+    // 3. Verifica quem foi clicado e atualiza a tela
+    if (usuarioClicado === "CarlosDev") {
+        nomePerfilElemento.textContent = "Carlos Dev";
+        bioPerfilElemento.textContent = "Aluno de Front-end";
+        fotoPerfilElemento.src = "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&q=80";
+        // Aqui você também pode puxar os posts específicos do Carlos do Firebase!
+        
+    } else if (usuarioClicado === "ProfAna") {
+        nomePerfilElemento.textContent = "Prof. Ana";
+        bioPerfilElemento.textContent = "Mentora de UX/UI";
+        fotoPerfilElemento.src = "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&q=80";
+        
+    } // ... adicione os outros usuários ...
+    
+    // Se não tiver parâmetro, carrega o perfil do próprio usuário logado (seu código atual)
+});

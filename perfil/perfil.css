@@ -1,3 +1,19 @@
+.logo_link{
+    margin:2%;
+
+
+
+
+}
+
+.voltar_i{
+    margin: 30px;
+    font-size: x-large;
+
+
+}
+
+
 /* --- ESTILOS DA PÁGINA DE PERFIL --- */
 .profile-main {
     max-width: 935px;
@@ -255,6 +271,70 @@
 
 
 
+/* --- TEMA SENAI 2026: BOTÕES E DESTAQUES --- */
 
+/* Botão de Editar Perfil chamativo com o Vermelho SENAI */
+.edit-profile-btn {
+    background-color: var(--secondary-color); /* Vermelho SENAI */
+    color: black;
+    border: none;
+    border-radius: 8px; /* Bordas mais arredondadas (tendência 2026) */
+    padding: 8px 18px;
+    font-weight: 600;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgb(0, 153, 255); /* Sombra vermelha suave */
+}
+
+.edit-profile-btn:hover {
+    background-color: #0084ff; /* Vermelho mais escuro no hover */
+    transform: translateY(-2px); /* Efeito do botão subindo um pouquinho */
+}
+
+/* Borda da foto de perfil com as cores do SENAI */
+.profile-avatar-large {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    /* Anel azul tecnológico em volta da foto */
+    border: 4px solid white;
+    box-shadow: 0 0 0 4px var(--primary-color); 
+}
+
+/* Abas de navegação (Publicações / Salvos) */
+.tab {
+    padding: 15px 30px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-muted);
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+/* A aba ativa ganha destaque no Vermelho e Azul */
+.tab.active {
+    color: var(--primary-color); /* Texto Azul SENAI */
+    border-top: 2px solid var(--secondary-color); /* Linha Vermelha SENAI */
+    margin-top: -1px;
+}
+
+/* Arredondamento moderno nas fotos do grid (Tendência 2026) */
+.grid-item img {
+    width: 100%;
+    height: 100%;
+    aspect-ratio: 1 / 1;
+    object-fit: cover;
+    cursor: pointer;
+    border-radius: 12px; /* Fotos com bordas mais suaves */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.grid-item img:hover {
+    transform: scale(1.03); /* Zoom suave ao passar o mouse */
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+}
 
 
