@@ -16,6 +16,76 @@ document.addEventListener('DOMContentLoaded', () => {
     if (nomeElemento) nomeElemento.textContent = nomeSalvo;
     if (emailElemento) emailElemento.textContent = emailSalvo;
 
+
+
+// ============================================
+    // LÓGICA DE EDITAR A BIO
+    // ============================================
+    const bioElemento = document.getElementById('perfil-bio-texto');
+    const btnEditar = document.getElementById('btn-editar-perfil');
+
+    // 1. Carrega a bio salva no LocalStorage (se existir)
+    const bioSalva = localStorage.getItem('usuarioBio');
+    if (bioSalva && bioElemento) {
+        bioElemento.innerHTML = bioSalva; 
+    }
+
+    // 2. Evento de clique no botão de editar
+    if (btnEditar && bioElemento) {
+        btnEditar.addEventListener('click', () => {
+            // Verifica se o botão já está no modo "Salvando"
+            const estaEditando = btnEditar.classList.contains('editando');
+
+            if (!estaEditando) {
+                // --- ENTRA NO MODO DE EDIÇÃO ---
+                btnEditar.textContent = "Salvar perfil"; // Muda o texto do botão
+                btnEditar.classList.add('editando'); // Marca que está editando
+                
+                // Pega o elemento atual da bio (seja <p> ou <textarea>)
+                const bioAtual = document.getElementById('perfil-bio-texto');
+                
+                // Transforma os <br> do HTML em quebras de linha reais (\n) para a caixa de texto
+                const textoAtual = bioAtual.innerHTML.replace(/<br\s*[\/]?>/gi, '\n');
+                
+                // Cria a caixa de texto (textarea)
+                const textarea = document.createElement('textarea');
+                textarea.id = 'perfil-bio-texto'; // Mantém o mesmo ID
+                textarea.className = 'bio-edit-textarea'; // Puxa o estilo do CSS
+                textarea.value = textoAtual; // Coloca o texto que já estava lá
+                
+                // Troca o parágrafo pela caixa de texto
+                bioAtual.replaceWith(textarea);
+                
+                // Coloca o cursor piscando direto na caixa de texto
+                textarea.focus();
+                
+            } else {
+                // --- SALVA O QUE FOI ESCRITO ---
+                const textarea = document.getElementById('perfil-bio-texto');
+                const novoTexto = textarea.value;
+                
+                // Transforma as quebras de linha que o usuário deu (Enter) em <br> pro HTML entender
+                const textoFormatado = novoTexto.replace(/\n/g, '<br>'); 
+                
+                // Salva o novo texto no navegador
+                localStorage.setItem('usuarioBio', textoFormatado);
+                
+                // Cria um parágrafo novo para colocar no lugar da caixa de texto
+                const novoP = document.createElement('p');
+                novoP.id = 'perfil-bio-texto';
+                novoP.innerHTML = textoFormatado;
+                
+                // Troca a caixa de texto pelo parágrafo
+                textarea.replaceWith(novoP);
+                
+                // Volta o botão ao normal
+                btnEditar.textContent = "Editar perfil";
+                btnEditar.classList.remove('editando');
+            }
+        });
+    }
+
+
     // ============================================
     // LÓGICA DO MODAL DE IMAGENS
     // ============================================

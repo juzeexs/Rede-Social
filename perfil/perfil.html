@@ -22,14 +22,14 @@
                 
                 <input type="file" id="input-foto-perfil" accept="image/*" style="display: none;">
                 
-                <div style="position: absolute; bottom: 0; background: rgba(0,0,0,0.6); color: white; width: 150px; text-align: center; border-bottom-left-radius: 75px; border-bottom-right-radius: 75px; padding: 5px 0 10px 0; font-size: 12px;">
-                    Mudar Foto
+                <div class="mudarfoto">
+                    <img class="imgf"   src="/img/camera_8775444.png">
                 </div>
             </div>
             <div class="profile-info">
                 <div class="profile-title-row">
                     <h2 id="perfil-nome" class="profile-username">Carregando...</h2>
-                    <button class="edit-profile-btn">Editar perfil</button>
+                    <button id="btn-editar-perfil"   class="edit-profile-btn">Editar perfil</button>
                 </div>
                 
                 <ul class="profile-stats">
@@ -40,7 +40,7 @@
                 
                 <div class="profile-bio">
                     <p id="perfil-email">carregando@aluno.senai.br</p>
-                    <p>🎓 Estudante do SENAI<br>💻 Apaixonado por tecnologia e programação.<br>🚀 Construindo projetos incríveis!</p>
+                    <p id="perfil-bio-texto">🎓 Estudante do SENAI<br>💻 Apaixonado por tecnologia e programação.<br>🚀 Construindo projetos incríveis!</p>
                 </div>
             </div>
         </header>
@@ -51,7 +51,7 @@
         </div>
 
         <section class="photo-grid">
-            <div class="grid-item"><img src="img/info-tbr-linguagens-de-programacao-1060x596.webp" alt="Post 1" class="img1"></div>
+            <div class="grid-item"><img src="/img/info-tbr-linguagens-de-programacao-1060x596.webp" alt="Post 1" class="img1"></div>
             <div class="grid-item"><img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?w=300&q=80" alt="Post 2"  class="img2" ></div>
             <div class="grid-item"><img src="https://images.unsplash.com/photo-1606326608606-aa0b62935f2b?w=300&q=80" alt="Post 3"  class="img3"></div>
             <div class="grid-item"><img src="https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?w=300&q=80" alt="Post 4" class="img4"></div>

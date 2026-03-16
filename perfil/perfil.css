@@ -56,7 +56,71 @@
     font-size: 1.75rem;
     font-weight: 300;
     margin-right: 20px;
+    animation: pulsarBrilho 2s infinite alternate;
+
 }
+
+/* Cria a animação do brilho */
+@keyframes pulsarBrilho {
+    0% {
+        text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff;
+    }
+    50% {
+        text-shadow: 0 0 10px #8ee5ff, 0 0 20px #01d9ff, 0 0 30px #006bf6;
+    }
+    100% {
+        text-shadow: 0 0 5px #ffffff, 0 0 10px #ffffff;
+    }
+}
+
+
+/* Estilo da caixa de texto quando o usuário estiver editando a bio */
+.bio-edit-textarea {
+    width: 100%;
+    min-height: 80px;
+    padding: 10px;
+    border: 2px solid var(--primary-color, #0095f6);
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 1rem;
+    resize: vertical; /* Permite o usuário aumentar a caixa só para baixo */
+    margin-top: 10px;
+    outline: none;
+}
+
+
+.mudarfoto{
+    position: absolute;
+    bottom: 0;
+    background: rgb(149, 216, 255);
+    width: 40px;
+    text-align: center;
+    border-radius: 40px; 
+    height: 40px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 50px;
+    margin-left: 65px;
+    z-index: 100;
+
+}
+
+
+.imgf{
+    height: 20px;
+    width: 20px;
+
+
+
+
+}
+
+
+
+
+
+
 
 .edit-profile-btn {
     background-color: transparent;
