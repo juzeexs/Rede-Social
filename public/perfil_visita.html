@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Perfil - SENAI Connect</title>
+    <link rel="stylesheet" href="style.css"> 
+    <style>
+        /* ESTILOS ESPECÍFICOS DO PERFIL */
+        .perfil-header-container {
+            background: white;
+            max-width: 800px;
+            margin: 20px auto;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .capa-perfil {
+            width: 100%;
+            height: 250px;
+            object-fit: cover;
+            background-color: #ddd;
+        }
+        .info-perfil {
+            padding: 20px;
+            position: relative;
+            text-align: center;
+            margin-top: -80px; /* Faz a foto subir para cima da capa */
+        }
+        .foto-perfil-grande {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid white;
+            object-fit: cover;
+            background-color: white;
+        }
+        .nome-perfil {
+            margin-top: 10px;
+            font-size: 1.8rem;
+            color: var(--text-main);
+        }
+        .subtitulo-perfil {
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            margin-bottom: 15px;
+        }
+        .bio-perfil {
+            max-width: 600px;
+            margin: 0 auto 20px auto;
+            color: var(--text-main);
+        }
+        .status-perfil {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+        .status-item {
+            text-align: center;
+        }
+        .status-numero {
+            font-weight: bold;
+            font-size: 1.2rem;
+            color: var(--text-main);
+        }
+        .btn-conectar {
+            background-color: var(--primary-color);
+            color: white;
+            border: none;
+            padding: 10px 25px;
+            border-radius: 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+        .btn-conectar:hover {
+            background-color: var(--accent-color);
+            transform: scale(1.05);
+        }
+
+        /* FEED DO USUÁRIO */
+        .grid-posts {
+            max-width: 800px;
+            margin: 20px auto;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+        }
+        .post-item {
+            width: 100%;
+            aspect-ratio: 1 / 1;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .post-item:hover {
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="rede.html" class="logo">📚 SENAI Connect</a>
+            <a href="rede.html" style="text-decoration: none; color: var(--primary-color); font-weight: bold;">⬅ Voltar ao Feed</a>
+        </div>
+    </header>
+
+    <main>
+        <div class="perfil-header-container">
+            <img id="visita-capa" class="capa-perfil" src="" alt="Capa do Perfil">
+            
+            <div class="info-perfil">
+                <img id="visita-foto" class="foto-perfil-grande" src="" alt="Foto de Perfil">
+                <h1 id="visita-nome" class="nome-perfil">Carregando...</h1>
+                <p id="visita-subtitulo" class="subtitulo-perfil"></p>
+                <p id="visita-bio" class="bio-perfil"></p>
+                
+                <div class="status-perfil">
+                    <div class="status-item">
+                        <div id="visita-conexoes" class="status-numero">0</div>
+                        <div style="color: var(--text-muted); font-size: 0.9rem;">Conexões</div>
+                    </div>
+                    <div class="status-item">
+                        <div id="visita-publicacoes" class="status-numero">0</div>
+                        <div style="color: var(--text-muted); font-size: 0.9rem;">Publicações</div>
+                    </div>
+                </div>
+
+                
+            </div>
+        </div>
+
+        <div class="grid-posts" id="visita-posts">
+            </div>
+    </main>
+
+    <script src="perfil_visita.js"></script>
+</body>
+</html>

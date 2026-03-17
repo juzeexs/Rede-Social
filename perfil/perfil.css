@@ -1,18 +1,38 @@
+@font-face {
+    font-family: 'Super Popstar'; /* O nome que você vai usar para chamar a fonte */
+    src: url('/fonts/MilkyNice-Clean.ttf') format('truetype'); /* O caminho de onde o arquivo está salvo */
+    font-weight: normal;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Super Popstar', sans-serif;
+}
+
+/* Para aplicar a fonte em todos os títulos h1 */
+h1 {
+    font-family: 'Super Popstar', sans-serif;
+}
+
+
+/* Para aplicar em uma classe específica */
+.texto-divertido {
+    font-family: 'Super Popstar', sans-serif;
+    font-size: 24px;
+}
+
+
+
+
+
 .logo_link{
     margin:2%;
-
-
-
-
 }
 
 .voltar_i{
     margin: 30px;
     font-size: x-large;
-
-
 }
-
 
 /* --- ESTILOS DA PÁGINA DE PERFIL --- */
 .profile-main {
@@ -27,11 +47,20 @@
     margin-bottom: 44px;
 }
 
+/* --- CONTAINER DA FOTO E CÂMERA --- */
 .profile-avatar-container {
     flex: 1;
     display: flex;
     justify-content: center;
     margin-right: 30px;
+    cursor: pointer;
+}
+
+/* Nova caixa que prende a foto e a câmera no mesmo tamanho */
+.avatar-wrapper {
+    position: relative;
+    width: 150px;
+    height: 150px;
 }
 
 .profile-avatar-large {
@@ -39,7 +68,31 @@
     height: 150px;
     border-radius: 50%;
     object-fit: cover;
-    border: 1px solid var(--border-color);
+    /* Anel azul tecnológico em volta da foto */
+    border: 4px solid white;
+    box-shadow: 0 0 0 4px var(--primary-color, #0095f6); 
+}
+
+/* Ícone da câmera travado no canto inferior direito */
+.mudarfoto {
+    position: absolute;
+    bottom: 5px; 
+    right: 5px;  
+    background: rgb(149, 216, 255);
+    width: 40px;
+    height: 40px;
+    border-radius: 50%; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+    border: 2px solid white;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+}
+
+.imgf {
+    height: 20px;
+    width: 20px;
 }
 
 .profile-info {
@@ -57,7 +110,6 @@
     font-weight: 300;
     margin-right: 20px;
     animation: pulsarBrilho 2s infinite alternate;
-
 }
 
 /* Cria a animação do brilho */
@@ -73,7 +125,6 @@
     }
 }
 
-
 /* Estilo da caixa de texto quando o usuário estiver editando a bio */
 .bio-edit-textarea {
     width: 100%;
@@ -86,50 +137,6 @@
     resize: vertical; /* Permite o usuário aumentar a caixa só para baixo */
     margin-top: 10px;
     outline: none;
-}
-
-
-.mudarfoto{
-    position: absolute;
-    bottom: 0;
-    background: rgb(149, 216, 255);
-    width: 40px;
-    text-align: center;
-    border-radius: 40px; 
-    height: 40px; 
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 50px;
-    margin-left: 65px;
-    z-index: 100;
-
-}
-
-
-.imgf{
-    height: 20px;
-    width: 20px;
-
-
-
-
-}
-
-
-
-
-
-
-
-.edit-profile-btn {
-    background-color: transparent;
-    border: 1px solid var(--border-color);
-    border-radius: 4px;
-    padding: 5px 9px;
-    font-weight: 600;
-    cursor: pointer;
-    font-size: 0.85rem;
 }
 
 .profile-stats {
@@ -152,22 +159,23 @@
 .profile-tabs {
     display: flex;
     justify-content: center;
-    border-top: 1px solid var(--border-color);
+    border-top: 1px solid var(--border-color, #dbdbdb);
     margin-top: 10px;
 }
 
 .tab {
-    padding: 15px 20px;
-    font-size: 0.75rem;
-    font-weight: 600;
-    color: var(--text-muted);
+    padding: 15px 30px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--text-muted, #8e8e8e);
     letter-spacing: 1px;
     cursor: pointer;
+    transition: color 0.3s ease;
 }
 
 .tab.active {
-    color: var(--text-main);
-    border-top: 1px solid var(--text-main);
+    color: var(--primary-color, #0095f6); 
+    border-top: 2px solid var(--secondary-color, #ff0000); 
     margin-top: -1px;
 }
 
@@ -185,125 +193,46 @@
     aspect-ratio: 1 / 1;
     object-fit: cover;
     cursor: pointer;
+    border-radius: 12px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Responsividade do Perfil */
-@media (max-width: 735px) {
-    .profile-header {
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-    }
-    .profile-avatar-container {
-        margin-right: 0;
-        margin-bottom: 20px;
-    }
-    .profile-stats {
-        justify-content: center;
-    }
-    .photo-grid {
-        gap: 3px;
-    }
+.grid-item img:hover {
+    transform: scale(1.03);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
 }
-
-
 
 .input1{
     width:160px ;
     height: 8px;
     border-radius: 20px;
     padding: 12px;
-    border-radius: 20px;
     box-shadow: 2px 2px 2px 2px rgb(145, 145, 145);
-    
-
-
-    outline: none; /* Remove a linha padrão de clique do navegador */
-    
-    /* TRUQUE: Cria a borda com a grossura desejada, mas invisível */
+    outline: none; 
     border: 2px solid transparent; 
-    
-    background-color: #f0f0f0; /* Uma cor de fundo leve para o input aparecer */
-    
-    /* Deixa o aparecimento da borda suave */
+    background-color: #f0f0f0; 
     transition: border-color 0.8s ease; 
 }
 
 .input1:hover {
-    border-color: #0095f6; /* A cor azul do Senai aparece! */
+    border-color: #0095f6; 
 }
 
 .input1:focus {
-    border-color: #0095f6; /* Mantém a borda azul enquanto a pessoa digita */
-    background-color: white; /* Deixa o fundo branco para focar na leitura */
+    border-color: #0095f6; 
+    background-color: white; 
 }
 
-
-/**********cards dos posts do perfil*************/
-
-
-
-.img1{
-    border-radius: 20px;
-
-
-
-}
-
-.img2{
-    border-radius: 20px;
-
-
-
-}
-
-
-.img3{
-    border-radius: 20px;
-
-
-
-}
-
-
-.img4{
-    border-radius: 20px;
-
-
-
-}
-
-
-.img5{
-    border-radius: 20px;
-
-
-
-}
-
-.img6{
-    border-radius: 20px;
-
-
-
-}
-
-
-
-
-/* ========================================== */
-/* MODAL DE VISUALIZAÇÃO DE IMAGEM            */
-/* ========================================== */
-
+/* MODAL DE VISUALIZAÇÃO DE IMAGEM */
 .image-modal {
-    display: none; /* Fica escondido até o JS ativar */
+    display: none; 
     position: fixed;
-    z-index: 2000; /* Fica por cima de tudo no site */
+    z-index: 2000; 
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(0, 0, 0, 0.85); /* Fundo escuro transparente */
+    background-color: rgba(0, 0, 0, 0.85); 
     justify-content: center;
     align-items: center;
     flex-direction: column;
@@ -311,7 +240,7 @@
 
 .modal-content {
     max-width: 90%;
-    max-height: 85vh; /* Não deixa a imagem passar do tamanho da tela */
+    max-height: 85vh; 
     border-radius: 8px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.5);
     object-fit: contain;
@@ -332,73 +261,77 @@
     color: #bbb;
 }
 
-
-
-
 /* --- TEMA SENAI 2026: BOTÕES E DESTAQUES --- */
-
-/* Botão de Editar Perfil chamativo com o Vermelho SENAI */
 .edit-profile-btn {
-    background-color: var(--secondary-color); /* Vermelho SENAI */
+    background-color: var(--secondary-color, #00b7ff); 
     color: black;
     border: none;
-    border-radius: 8px; /* Bordas mais arredondadas (tendência 2026) */
+    border-radius: 8px; 
     padding: 8px 18px;
     font-weight: 600;
     cursor: pointer;
     font-size: 0.85rem;
     transition: all 0.3s ease;
-    box-shadow: 0 4px 10px rgb(0, 153, 255); /* Sombra vermelha suave */
+    box-shadow: 0 4px 10px rgb(0, 153, 255); 
 }
 
 .edit-profile-btn:hover {
-    background-color: #0084ff; /* Vermelho mais escuro no hover */
-    transform: translateY(-2px); /* Efeito do botão subindo um pouquinho */
+    background-color: #0084ff; 
+    transform: translateY(-2px); 
 }
 
-/* Borda da foto de perfil com as cores do SENAI */
-.profile-avatar-large {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    /* Anel azul tecnológico em volta da foto */
-    border: 4px solid white;
-    box-shadow: 0 0 0 4px var(--primary-color); 
+/* ========================================== */
+/* RESPONSIVIDADE DO PERFIL (Mobile)          */
+/* ========================================== */
+@media (max-width: 735px) {
+    .profile-header {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+    
+    .profile-avatar-container {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+    
+    .profile-title-row {
+        flex-direction: column;
+        gap: 15px; 
+        margin-bottom: 15px;
+    }
+    
+    .profile-username {
+        margin-right: 0; 
+    }
+
+    .profile-stats {
+        justify-content: center;
+        gap: 20px; 
+        padding: 0;
+    }
+    
+    .profile-stats li {
+        margin-right: 0; 
+        font-size: 0.95rem;
+    }
+
+    .photo-grid {
+        gap: 3px; 
+    }
 }
 
-/* Abas de navegação (Publicações / Salvos) */
-.tab {
-    padding: 15px 30px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: var(--text-muted);
-    letter-spacing: 1px;
-    cursor: pointer;
-    transition: color 0.3s ease;
+/* Telas bem pequenas (ex: iPhone SE) */
+@media (max-width: 480px) {
+    .profile-stats {
+        gap: 12px;
+    }
+    
+    .profile-stats li {
+        font-size: 0.85rem;
+    }
+    
+    .edit-profile-btn {
+        width: 100%; 
+    }
 }
-
-/* A aba ativa ganha destaque no Vermelho e Azul */
-.tab.active {
-    color: var(--primary-color); /* Texto Azul SENAI */
-    border-top: 2px solid var(--secondary-color); /* Linha Vermelha SENAI */
-    margin-top: -1px;
-}
-
-/* Arredondamento moderno nas fotos do grid (Tendência 2026) */
-.grid-item img {
-    width: 100%;
-    height: 100%;
-    aspect-ratio: 1 / 1;
-    object-fit: cover;
-    cursor: pointer;
-    border-radius: 12px; /* Fotos com bordas mais suaves */
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.grid-item img:hover {
-    transform: scale(1.03); /* Zoom suave ao passar o mouse */
-    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
-}
-
-

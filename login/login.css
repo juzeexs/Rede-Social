@@ -1,7 +1,21 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
-* {
-    font-family: 'Poppins', sans-serif;
+@font-face {
+    font-family: 'Super Popstar';
+    /* ATENÇÃO: Como o login.css está dentro da pasta /login/, 
+       talvez seja necessário usar ../ para voltar uma pasta atrás, 
+       dependendo de onde guardou o ficheiro .ttf */
+    src: url('/fonts/MilkyNice-Clean.ttf') format('truetype'); 
+    font-weight: normal;
+    font-style: normal;
 }
+
+
+    * {
+    font-family: 'Super Popstar', sans-serif;
+}
+
+
+
+
 body{
     justify-content: center;
     display:flex ;
@@ -109,8 +123,10 @@ body{
 }
 
 .logo{
-    color: #ff9100;
     
+    color: #ff9100;
+    font-family: 'Super Popstar', sans-serif;
+    font-size: 32px; /* Adicione esta linha e ajuste o tamanho se necessário */
 
 }
 

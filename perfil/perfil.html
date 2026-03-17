@@ -9,27 +9,29 @@
 <body>
 
     <header>
-       
-                <a href="/public/rede.html" style="text-decoration: none;" class="voltar_i">🏠</a> 
-            </div>
+        <div>
+            <a href="/public/rede.html" style="text-decoration: none;" class="voltar_i">🏠</a> 
         </div>
     </header>
 
     <main class="profile-main">
         <header class="profile-header">
-           <div class="profile-avatar-container" style="position: relative; cursor: pointer;" title="Clique para trocar a foto" onclick="document.getElementById('input-foto-perfil').click()">
-                <img id="foto-perfil-atual" src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=150&q=80" alt="Sua Foto" class="profile-avatar-large">
+           <div class="profile-avatar-container" onclick="document.getElementById('input-foto-perfil').click()">
+                <div class="avatar-wrapper" title="Clique para trocar a foto">
+                    <img id="foto-perfil-atual" src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=150&q=80" alt="Sua Foto" class="profile-avatar-large">
+                    
+                    <div class="mudarfoto">
+                        <img class="imgf" src="/img/camera_8775444.png">
+                    </div>
+                </div>
                 
                 <input type="file" id="input-foto-perfil" accept="image/*" style="display: none;">
-                
-                <div class="mudarfoto">
-                    <img class="imgf"   src="/img/camera_8775444.png">
-                </div>
             </div>
+
             <div class="profile-info">
                 <div class="profile-title-row">
                     <h2 id="perfil-nome" class="profile-username">Carregando...</h2>
-                    <button id="btn-editar-perfil"   class="edit-profile-btn">Editar perfil</button>
+                    <button id="btn-editar-perfil" class="edit-profile-btn">Editar perfil</button>
                 </div>
                 
                 <ul class="profile-stats">
@@ -60,13 +62,10 @@
         </section>
     </main>
 
-<div id="image-modal" class="image-modal" onclick="fecharModalImagem(event)">
+    <div id="image-modal" class="image-modal" onclick="fecharModalImagem(event)">
         <span class="close-modal">&times;</span>
         <img class="modal-content" id="img-ampliada" alt="Imagem ampliada">
     </div>
-
-
-
 
     <script src="perfil.js"></script>
 </body>

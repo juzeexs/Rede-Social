@@ -221,12 +221,46 @@ window.fecharStory = function () {
 // ============================================
 // SISTEMA DE BUSCA
 // ============================================
+// Exemplo de como deve ficar a sua lista mockada
 const usuariosBuscaMock = [
-    { nome: "Prof. Ana", subtitulo: "Mentora de UX/UI", foto: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=100&q=80", link: "/perfil/perfil.html" },
-    { nome: "Clube do Python", subtitulo: "Comunidade • 5k membros", foto: "https://images.unsplash.com/photo-1506869640319-fe1a24fd76dc?w=100&q=80", link: "#" },
-    { nome: "Carlos Dev", subtitulo: "Aluno de Front-end", foto: "https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=100&q=80", link: "#" },
-    { nome: "Mariana Silva", subtitulo: "Professora de Back-end", foto: "https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=100&q=80", link: "#" }
+    { 
+        id: "prof_joao", // ID único sem espaços
+        nome: "João Silva", 
+        subtitulo: "Professor de Front-end", 
+        foto: "https://i.pravatar.cc/150?img=11", 
+        link: "perfil_visita.html?id=prof_joao" // O link passa o ID na URL!
+    },
+    { 
+        id: "prof_maria", 
+        nome: "Maria Souza", 
+        subtitulo: "Mentora de Back-end", 
+        foto: "https://i.pravatar.cc/150?img=5", 
+        link: "perfil_visita.html?id=prof_maria" 
+    },
+    { 
+        id: "aluno_carlos", 
+        nome: "Carlos Eduardo", 
+        subtitulo: "Aluno de Redes", 
+        foto: "https://i.pravatar.cc/150?img=12", 
+        link: "perfil_visita.html?id=aluno_carlos" 
+    },
+
+{ 
+        nome: "Ana Oliveira", 
+        subtitulo: "Professora e Gestora de TI", 
+        foto: "https://i.pravatar.cc/150?img=47", // Foto de perfil feminina profissional
+        link: "perfil_visita.html?id=prof_ana" 
+    }
+   
+   
 ];
+
+
+
+
+
+
+
 
 document.addEventListener("DOMContentLoaded", () => {
     const inputBusca = document.getElementById("input-busca");
