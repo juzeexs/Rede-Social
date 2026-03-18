@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SENAI Connect - Feed</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">📚 SENAI Connect</a>
+          <div class="search-bar" style="position: relative;">
+    <input type="text" id="input-busca" placeholder="Buscar trilhas, mentores ou tópicos..." autocomplete="off">
+    <div id="resultados-busca" class="resultados-busca"></div>
+</div>
+            <div style="display: flex; align-items: center; gap: 15px; font-size: 1.2rem;">
+                <button class="theme-toggle-btn" onclick="alternarTema()" id="btn-tema">☀️ Claro</button>
+                <span><a href="/perfil/perfil.html">👤</a></span>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="feed">
+
+            <div class="stories-container">
+                <div class="story" onclick="abrirStory('https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?w=800&q=80')">
+                    <img src="https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?w=150&q=80" alt="Código" class="story-img">
+                    <span class="story-title">HTML/CSS</span>
+                </div>
+                <div class="story" onclick="abrirStory('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&q=80')">
+                    <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=150&q=80" alt="Estudos" class="story-img">
+                    <span class="story-title">Foco 25min</span>
+                </div>
+                <div class="story" onclick="abrirStory('https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=800&q=80')" >
+                    <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?w=150&q=80" alt="Tech" class="story-img">
+                    <span class="story-title">Desafios JS</span>
+                </div>
+                <div class="story"  onclick="abrirStory('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&q=80')">
+                    <img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=150&q=80" alt="Anotações" class="story-img">
+                    <span class="story-title">Mapas Ment.</span>
+                </div>
+            </div>
+
+            <div style="text-align: right; margin-bottom: 16px;">
+                <a href="/criar_post/criar-post.html" style="
+                    background-color: var(--primary-color);
+                    color: white;
+                    padding: 10px 20px;
+                    border-radius: 8px;
+                    text-decoration: none;
+                    font-weight: 600;
+                    font-size: 0.9rem;
+                ">+ Nova Publicação</a>
+            </div>
+
+            <div id="feed-posts">
+                <p style="text-align:center; color: var(--text-muted); margin-top: 40px;">Carregando posts...</p>
+            </div>
+
+        </section>
+
+        <aside class="sidebar">
+            <div class="suggestion-item">
+    <a href="/perfil/perfil.html">
+        <img id="sidebar-foto-perfil" src="https://images.unsplash.com/photo-1527980965255-d3b416303d12?w=100&q=80" alt="Seu Perfil">
+    </a>
+                <div class="suggestion-info">
+                    <h4><a href="/perfil/perfil.html" style="text-decoration: none; color: var(--text-main);" id="sidebar-nome">seu_usuario</a></h4>
+                    <p id="sidebar-email">Iniciante em Front-end</p>
+                </div>
+            </div>
+
+            <h4 class="sidebar-title">Mentores e Grupos Sugeridos</h4>
+
+            <div class="suggestion-item">
+                <img src="https://i.pravatar.cc/150?img=47" alt="Mentor 1">
+                <div class="suggestion-info">
+                    <h4>Prof. Ana</h4>
+                    <p class="mentora1">Mentora de UX/UI</p>
+                </div>
+                <button class="follow-btn"><a href="perfil_visita.html?id=prof_ana">Acompanhar</a></button>
+            </div>
+<!----------------------------------clube do python----------------------------------------------------------------------------------------->
+            <div class="suggestion-item">
+    <img src="https://images.unsplash.com/photo-1506869640319-fe1a24fd76dc?w=100&q=80" alt="Grupo">
+    <div class="suggestion-info">
+        <h4>Clube do Python</h4>
+        <p>Comunidade • 5k membros</p>
+    </div>
+    <button class="follow-btn">
+        <a href="perfil_visita.html?id=clube_python" style="text-decoration: none; color: inherit;">Entrar</a>
+    </button>
+</div>
+        </aside>
+    </main>
+
+    <div id="comentarios-overlay" class="overlay" onclick="fecharPainel()"></div>
+    <div id="comentarios-painel" class="comments-panel">
+        <div class="panel-header">
+            <h3>Comentários</h3>
+            <span class="close-btn" onclick="fecharPainel()">X</span>
+        </div>
+        <div id="lista-comentarios-painel" class="panel-content"></div>
+        <div class="panel-footer">
+            <input type="text" id="input-comentario-painel" placeholder="Adicione um comentário..." onkeypress="verificarEnterPainel(event)">
+            <button onclick="publicarComentarioPainel()">Publicar</button>
+        </div>
+    </div>
+
+    <div id="story-overlay" class="story-overlay" onclick="if(event.target === this) fecharStory()">
+        <div class="story-content">
+            <div class="story-progress-container">
+                <div id="story-progress-bar" class="story-progress-bar"></div>
+            </div>
+            <div class="story-header">
+                <div class="story-user-info">
+                    <img id="story-avatar" src="" alt="Avatar">
+                    <span id="story-username"></span>
+                </div>
+                <span class="close-story" onclick="fecharStory()">X</span>
+            </div>
+            <img id="story-image" src="" alt="Story">
+        </div>
+    </div>
+
+    <script type="module" src="script.js"></script>
+    <script>
+        function alternarTema() {
+            const body = document.body;
+            const btn = document.getElementById('btn-tema');
+            body.classList.toggle('tema-claro');
+            localStorage.setItem('tema', body.classList.contains('tema-claro') ? 'claro' : 'escuro');
+            btn.textContent = body.classList.contains('tema-claro') ? '🌙 Escuro' : '☀️ Claro';
+        }
+        (function() {
+            const temaSalvo = localStorage.getItem('tema');
+            if (temaSalvo === 'claro') {
+                document.body.classList.add('tema-claro');
+                document.addEventListener('DOMContentLoaded', () => {
+                    const btn = document.getElementById('btn-tema');
+                    if (btn) btn.textContent = '🌙 Escuro';
+                });
+            }
+        })();
+    </script>
+</body>
+</html>

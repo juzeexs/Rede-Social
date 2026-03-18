@@ -1,0 +1,589 @@
+@font-face {
+    font-family: 'Super Popstar';
+    src: url('/fonts/MilkyNice-Clean.ttf') format('truetype'); /* Certifique-se de que o ficheiro .ttf está na mesma pasta que o style.css, caso contrário ajuste o caminho */
+    font-weight: normal;
+    font-style: normal;
+}
+ 
+ /* Também pode aplicar aos títulos, se quiser */
+h1, h2, h3 {
+    font-family: 'MilkyNice-Clean', sans-serif;
+}
+
+
+
+
+ 
+ 
+ /* Estilos Base e Variáveis - TEMA SENAI 2026 */
+:root {
+    --bg-color: #313131;         /* Fundo cinza super claro, mais moderno */
+    --border-color: #E0E0E0;     /* Bordas sutis */
+    --text-main: #ffffff;        /* Quase preto, excelente para leitura */
+    --text-muted: #6C757D;       /* Cinza para textos secundários */
+    
+    /* Cores Oficiais SENAI */
+    --primary-color: #004A8D;    /* Azul institucional profundo */
+    --secondary-color: #E3000F;  /* Vermelho vibrante SENAI */
+    --accent-color: #0072CE;     /* Azul claro para hover/destaques */
+    --heart-color: #E3000F;      /* Corações no vermelho SENAI */
+}
+
+       * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Super Popstar', sans-serif;
+}
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            
+        
+        }
+
+        /* Cabeçalho (Navbar) */
+        header {
+            background-color: #313131;
+            border-bottom: 1px solid var(--border-color);
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 100;
+        }
+
+        .nav-container {
+            max-width: 975px;
+            margin: 0 auto;
+            padding: 0 20px;
+            height: 60px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            text-decoration: none;
+            color: var(--text-main);
+            font-family: 'Super Popstar', sans-serif;
+            font-size: 24px; /* Pode ajustar o tamanho se a fonte ficar muito pequena */
+        
+        }
+
+        .search-bar input {
+            background-color: var(--bg-color);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 8px 16px;
+            outline: none;
+            width: 250px;
+        }
+
+        /* Layout Principal */
+        main {
+            max-width: 975px;
+            margin: 85px auto 0;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            padding: 0 20px;
+        }
+
+        /* Seção "Stories" (Trilhas Rápidas) */
+        .stories-container {
+            background-color: #313131;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 16px 0;
+            margin-bottom: 24px;
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+        }
+
+        /* ========================================== */
+/* BOTÃO DE TEMA CLARO/ESCURO                 */
+/* ========================================== */
+
+.theme-toggle-btn {
+    background: none;
+    border: 1.5px solid var(--border-color);
+    border-radius: 20px;
+    padding: 5px 12px;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--text-main);
+    transition: all 0.3s ease;
+}
+
+.theme-toggle-btn:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+/* ==========================================
+   TEMA CLARO (ativado pela classe .tema-claro no body)
+   ========================================== */
+body.tema-claro {
+    --bg-color: #f5f5f5;
+    --text-main: #1a1a1a;
+    --border-color: #D0D0D0;
+    background-color: #f5f5f5;
+    color: #1a1a1a;
+}
+
+/* Header */
+body.tema-claro header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #D0D0D0;
+}
+
+/* Logo e links do header */
+body.tema-claro .logo,
+body.tema-claro header a {
+    color: #1a1a1a;
+}
+
+/* Stories */
+body.tema-claro .stories-container {
+    background-color: #ffffff;
+}
+
+body.tema-claro .story-title {
+    color: #1a1a1a;
+}
+
+/* Posts */
+body.tema-claro .post {
+    background-color: #ffffff;
+}
+
+body.tema-claro .post-user {
+    color: #1a1a1a;
+}
+
+body.tema-claro .post-likes {
+    color: #1a1a1a;
+}
+
+/* Sidebar */
+body.tema-claro .sidebar-title {
+    color: #6C757D;
+}
+
+body.tema-claro .suggestion-info h4 {
+    color: #1a1a1a;
+}
+
+/* Barra de busca */
+body.tema-claro .search-bar input {
+    background-color: #f0f0f0;
+    color: #1a1a1a;
+    border-color: #D0D0D0;
+}
+
+/* Painel de comentários */
+body.tema-claro .comments-panel {
+    background: #ffffff;
+    color: #1a1a1a;
+}
+
+body.tema-claro .panel-header {
+    border-bottom-color: #D0D0D0;
+}
+
+body.tema-claro .panel-footer {
+    border-top-color: #D0D0D0;
+}
+
+/* Botão de tema */
+body.tema-claro .theme-toggle-btn {
+    color: #1a1a1a;
+    border-color: #D0D0D0;
+}
+
+body.tema-claro .theme-toggle-btn:hover {
+    background-color: rgba(0,0,0,0.05);
+}
+
+        .story {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 80px;
+            cursor: pointer;
+        }
+
+        .story-img {
+            width: 66px;
+            height: 66px;
+            border-radius: 50%;
+            border: 3px solid var(--primary-color);
+            padding: 2px;
+            object-fit: cover;
+        }
+
+        .story-title {
+            font-size: 0.75rem;
+            margin-top: 5px;
+            color: var(--text-main);
+        }
+
+        /* Feed de Postagens */
+        .post {
+            background: #313131;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+
+        .post-header {
+            display: flex;
+            align-items: center;
+            padding: 14px;
+        }
+
+        .post-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .post-user {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: white;
+        }
+
+        .post-tag {
+            font-size: 0.75rem;
+            color: var(--primary-color);
+            margin-left: auto;
+            background: #e0f2fe;
+            padding: 3px 8px;
+            border-radius: 12px;
+        }
+
+        .post-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .post-actions {
+            padding: 14px;
+            display: flex;
+            gap: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .like-btn.liked {
+            color: var(--heart-color);
+        }
+
+        .post-content {
+            padding: 0 14px 14px;
+            font-size: 0.9rem;
+        }
+
+        .post-likes {
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+            color: rgb(255, 255, 255);
+        }
+
+        /* Barra Lateral (Mentores e Dicas) */
+        .sidebar {
+            position: sticky;
+            top: 85px;
+        }
+
+        .sidebar-title {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .suggestion-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .suggestion-item img {
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            margin-right: 10px;
+        }
+
+        .suggestion-info h4 {
+            font-size: 0.9rem;
+        }
+
+        .suggestion-info p {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+        }
+
+        .follow-btn {
+            margin-left: auto;
+            color: var(--primary-color);
+            font-weight: 600;
+            font-size: 0.8rem;
+            cursor: pointer;
+            border: none;
+            background: none;
+        }
+
+        /* Responsividade */
+        @media (max-width: 800px) {
+            main {
+                grid-template-columns: 1fr;
+            }
+            .sidebar {
+                display: none;
+            }
+            .search-bar {
+                display: none;
+            }
+        }
+
+    /* ========================================== */
+/* ESTILOS DO PAINEL LATERAL DE COMENTÁRIOS   */
+/* ========================================== */
+
+/* 1. Fundo escuro atrás do painel (escondido por padrão) */
+.overlay {
+    display: none; 
+    position: fixed; 
+    top: 0; left: 0; 
+    width: 100%; height: 100%; 
+    background: rgba(0,0,0,0.5); 
+    z-index: 999; 
+}
+
+/* 2. A aba lateral em si (escondida fora da tela na direita) */
+.comments-panel {
+    position: fixed; 
+    top: 0; 
+    right: -400px; /* Isso é o que esconde ela fora da tela! */
+    width: 350px; 
+    height: 100vh; /* Ocupa a altura toda da tela */
+    background: white; 
+    z-index: 1000; 
+    transition: right 0.3s ease; /* Animação suave deslizando */
+    display: flex; 
+    flex-direction: column; 
+    box-shadow: -2px 0 10px rgba(0,0,0,0.1); 
+}
+
+/* 3. Classe que o JavaScript usa para puxar o painel para dentro da tela */
+.comments-panel.open {
+    right: 0; 
+}
+
+/* 4. Estilos de dentro do painel (Cabeçalho, botão de fechar, textos) */
+.panel-header {
+    display: flex; 
+    justify-content: space-between; 
+    align-items: center;
+    padding: 15px 20px; 
+    border-bottom: 1px solid var(--border-color); 
+}
+
+.close-btn {
+    cursor: pointer;
+    font-weight: bold;
+    color: var(--text-muted);
+}
+
+.close-btn:hover {
+    color: red;
+}
+
+.panel-content {
+    flex: 1; 
+    padding: 15px 20px; 
+    overflow-y: auto; 
+}
+
+.panel-content p {
+    font-size: 0.9rem;
+    margin-bottom: 12px;
+    line-height: 1.4;
+    word-break: break-word;
+}
+
+/* 5. Área onde a pessoa digita o comentário */
+.panel-footer {
+    padding: 15px 20px; 
+    border-top: 1px solid var(--border-color); 
+    display: flex; 
+}
+
+.panel-footer input {
+    flex: 1; 
+    padding: 10px 15px; 
+    border: 1px solid var(--border-color); 
+    border-radius: 20px; 
+    outline: none; 
+    font-size: 0.9rem;
+}
+
+.panel-footer button {
+    background: none; 
+    border: none; 
+    color: var(--primary-color); 
+    font-weight: bold; 
+    margin-left: 10px; 
+    cursor: pointer; 
+}    
+
+
+/* ========================================== */
+/* ESTILOS DO MODAL DE STORY                  */
+/* ========================================== */
+
+.story-overlay {
+    display: none; /* Escondido por padrão */
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.9); /* Fundo bem escuro */
+    z-index: 2000; /* Fica acima de tudo, inclusive do header */
+    justify-content: center;
+    align-items: center;
+}
+
+.story-content {
+    position: relative;
+    width: 100%;
+    max-width: 400px; /* Largura parecida com celular */
+    height: 85vh;
+    background: #262626;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.story-progress-container {
+    width: 96%;
+    height: 3px;
+    background: rgba(255, 255, 255, 0.3);
+    position: absolute;
+    top: 10px; left: 2%;
+    border-radius: 3px;
+    z-index: 10;
+    overflow: hidden;
+}
+
+.story-progress-bar {
+    height: 100%;
+    background: white;
+    width: 0%; /* O JS vai animar isso de 0% a 100% */
+}
+
+.story-header {
+    position: absolute;
+    top: 25px; left: 15px; right: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 10;
+    color: white;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.8); /* Sombrinha para ler melhor */
+}
+
+.story-user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.story-user-info img {
+    width: 35px; height: 35px;
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+.close-story {
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+#story-image {
+    width: 100%; height: 100%;
+    object-fit: cover; /* Faz a imagem preencher a tela sem distorcer */
+}
+
+
+/* ========================================== */
+/* ESTILOS DA BUSCA DE USUÁRIOS (DROPDOWN)    */
+/* ========================================== */
+
+.resultados-busca {
+    display: none; /* Escondido até o usuário digitar algo */
+    position: absolute;
+    top: 40px; /* Fica logo abaixo do input */
+    left: 0;
+    width: 100%;
+    background-color: white;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    max-height: 300px;
+    overflow-y: auto;
+    z-index: 1000;
+}
+
+.resultado-item {
+    display: flex;
+    align-items: center;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-bottom: 1px solid var(--border-color);
+    text-decoration: none;
+    color: var(--text-main);
+    transition: background-color 0.2s;
+}
+
+.resultado-item:last-child {
+    border-bottom: none;
+}
+
+.resultado-item:hover {
+    background-color: #f8f9fa;
+}
+
+.resultado-item img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 12px;
+    object-fit: cover;
+}
+
+.resultado-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.resultado-info h4 {
+    font-size: 0.85rem;
+    margin: 0 0 2px 0;
+}
+
+.resultado-info p {
+    font-size: 0.75rem;
+    color: var(--text-muted);
+    margin: 0;
+}
