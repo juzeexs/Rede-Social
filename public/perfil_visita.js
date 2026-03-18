@@ -39,16 +39,34 @@ const baseDeDadosUsuarios = {
             "https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=400&q=60", // Foto de planeamento de projeto/post-its
             "https://images.unsplash.com/photo-1515162816999-a0c47dc192f7?auto=format&fit=crop&w=400&q=60"  // Foto de um evento de tecnologia
         ]
+    },
+
+// Adicione o bloco abaixo:
+    "clube_python": {
+        nome: "Clube do Python",
+        subtitulo: "Comunidade • 5.000 membros",
+        bio: "O maior grupo de estudos de Python do SENAI. Compartilhamos dicas, dúvidas, vagas e projetos open-source! 🐍🚀",
+        foto: "https://images.unsplash.com/photo-1506869640319-fe1a24fd76dc?w=100&q=80",
+        capa: "https://images.unsplash.com/photo-1526379095098-d400fd0bf935?auto=format&fit=crop&w=1000&q=80", // Capa de código matrix/python
+        conexoes: 5000,
+        posts: [
+            "https://images.unsplash.com/photo-1526374965328-7f61d4dc18c5?auto=format&fit=crop&w=400&q=60",
+            "https://images.unsplash.com/photo-1555099962-4199c345e5dd?auto=format&fit=crop&w=400&q=60"
+        ]
     }
 
 
 
 
 
-
-
-
 };
+
+
+
+
+
+
+
 
 
 // Captura o ID da URL

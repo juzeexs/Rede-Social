@@ -3,129 +3,146 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nova Publicação - SENAI Connect</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Criar Nova Publicação</title>
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <style>
-        .criar-post-container {
-            max-width: 600px;
-            margin: 100px auto 0;
-            padding: 20px;
-            background: white;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
+        /* RESET BÁSICO */
+        * {
+            margin: 0; padding: 0; box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
-        .criar-post-container h2 {
-            margin-bottom: 20px;
-            font-size: 1.2rem;
+
+        body {
+            background-color: #fafafa;
+            display: flex; justify-content: center; align-items: center; min-height: 100vh;
         }
-        .criar-post-container textarea {
-            width: 100%;
-            height: 120px;
-            padding: 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            resize: none;
-            font-size: 0.95rem;
-            outline: none;
-            font-family: inherit;
+
+        .overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background-color: rgba(0, 0, 0, 0.65);
+            display: flex; justify-content: center; align-items: center;
         }
-        .criar-post-container textarea:focus {
-            border-color: var(--primary-color);
+
+        .create-post-modal {
+            background-color: #ffffff; width: 850px; max-width: 90%; height: 550px;
+            border-radius: 12px; display: flex; flex-direction: column;
+            overflow: hidden; box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
-        .criar-post-container select {
-            width: 100%;
-            padding: 10px 12px;
-            margin: 12px 0;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 0.9rem;
-            outline: none;
-            font-family: inherit;
-            cursor: pointer;
+
+        .modal-header {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 0 16px; height: 43px; border-bottom: 1px solid #dbdbdb;
         }
-        .criar-post-container input[type="text"] {
-            width: 100%;
-            padding: 10px 12px;
-            margin-bottom: 12px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 0.9rem;
-            outline: none;
-            font-family: inherit;
+
+        .modal-header h1 {
+            font-size: 16px; font-weight: 600; color: #262626; flex-grow: 1; text-align: center;
         }
-        .criar-post-container input[type="text"]:focus {
-            border-color: var(--primary-color);
+
+        .share-btn {
+            background: none; border: none; color: #0095f6; font-weight: 600;
+            font-size: 14px; cursor: pointer;
         }
-        .btn-publicar {
-            width: 100%;
-            padding: 12px;
-            background-color: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 8px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.2s;
+
+        .share-btn:hover { color: #1877f2; }
+        .share-btn:disabled { color: #8e8e8e; cursor: not-allowed; }
+
+        .back-btn {
+            background: none; border: none; cursor: pointer; font-size: 24px; color: #262626;
         }
-        .btn-publicar:hover {
-            background-color: #0081d6;
+
+        .modal-body {
+            display: flex; flex-grow: 1; height: calc(100% - 43px);
         }
-        .btn-publicar:disabled {
-            background-color: #b2dffc;
-            cursor: not-allowed;
+
+        /* ÁREA DA IMAGEM */
+        .image-area {
+            flex: 1.5; background-color: #fafafa; border-right: 1px solid #dbdbdb;
+            display: flex; flex-direction: column; justify-content: center;
+            align-items: center; position: relative; overflow: hidden;
         }
-        #msg-erro {
-            color: red;
-            font-size: 0.85rem;
-            margin-bottom: 10px;
+
+        .image-area i { font-size: 64px; color: #262626; margin-bottom: 16px; }
+        .image-area h2 { font-size: 20px; font-weight: 300; color: #262626; margin-bottom: 24px; }
+
+        .upload-btn {
+            background-color: #0095f6; color: white; border: none; border-radius: 8px;
+            padding: 8px 16px; font-weight: 600; font-size: 14px; cursor: pointer;
         }
-        label {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            font-weight: 600;
-            display: block;
-            margin-bottom: 5px;
+
+        .upload-btn:hover { background-color: #1877f2; }
+
+        /* PREVIEW DA IMAGEM */
+        #image-preview {
+            display: none; width: 100%; height: 100%; object-fit: cover;
+        }
+
+        /* ÁREA DA LEGENDA */
+        .caption-area {
+            flex: 1; background-color: #ffffff; display: flex; flex-direction: column;
+        }
+
+        .user-info { display: flex; align-items: center; padding: 16px; }
+        .avatar { width: 28px; height: 28px; background-color: #dbdbdb; border-radius: 50%; margin-right: 12px; }
+        .username { font-weight: 600; font-size: 14px; color: #262626; }
+
+        .caption-input {
+            width: 100%; height: 200px; border: none; resize: none;
+            padding: 0 16px; font-size: 14px; color: #262626; outline: none;
+        }
+
+        .caption-input::placeholder { color: #8e8e8e; }
+        .options-list { margin-top: auto; border-top: 1px solid #dbdbdb; }
+
+        .option-item {
+            display: flex; justify-content: space-between; align-items: center;
+            padding: 12px 16px; border-bottom: 1px solid #dbdbdb;
+            font-size: 14px; color: #262626; cursor: pointer;
         }
     </style>
 </head>
 <body>
 
-    <header>
-        <div class="nav-container">
-            <a href="rede.html" class="logo">📚 SENAI Connect</a>
-            <div class="search-bar">
-                <input type="text" placeholder="Buscar trilhas, mentores ou tópicos...">
-            </div>
-            <div style="font-size: 1.2rem; cursor: pointer;">
-                <a href="rede.html" style="text-decoration: none;">🏠</a> 📖 💬 <a href="perfil.html" style="text-decoration: none;">👤</a>
+    <div class="overlay">
+        <div class="create-post-modal">
+            
+            <header class="modal-header">
+                <button class="back-btn" onclick="window.history.back()"><i class="ph ph-arrow-left"></i></button>
+                <h1>Criar nova publicação</h1>
+                <button class="share-btn" id="btn-compartilhar">Compartilhar</button>
+            </header>
+            
+            <div class="modal-body">
+                
+                <div class="image-area">
+                    <img id="image-preview" src="" alt="Preview">
+                    <div id="upload-placeholder" style="display: flex; flex-direction: column; align-items: center;">
+                        <i class="ph ph-images"></i>
+                        <h2>Arraste as fotos e os vídeos aqui</h2>
+                        <label for="file-upload" class="upload-btn" tabindex="0">
+                            Selecionar do computador
+                        </label>
+                    </div>
+                    <input type="file" id="file-upload" accept="image/*" hidden>
+                </div>
+
+                <div class="caption-area">
+                    <div class="user-info">
+                        <div class="avatar"></div>
+                        <span class="username" id="display-username">usuario</span>
+                    </div>
+                    
+                    <textarea class="caption-input" id="input-legenda" placeholder="Escreva uma legenda..."></textarea>
+                    
+                    <div class="options-list">
+                        <div class="option-item">Adicionar localização <i class="ph ph-map-pin"></i></div>
+                        <div class="option-item">Acessibilidade <i class="ph ph-caret-down"></i></div>
+                    </div>
+                </div>
+
             </div>
         </div>
-    </header>
-
-    <div class="criar-post-container">
-        <h2>✏️ Nova Publicação</h2>
-
-        <label>URL da imagem (opcional)</label>
-        <input type="text" id="input-imagem" placeholder="Cole o link de uma imagem (ex: https://...)">
-
-        <label>Texto do post</label>
-        <textarea id="input-texto" placeholder="O que você quer compartilhar com a turma?"></textarea>
-
-        <label>Tag</label>
-        <select id="input-tag">
-            <option value="Dica Digital 💡">Dica Digital 💡</option>
-            <option value="Procura-se Dupla 🤝">Procura-se Dupla 🤝</option>
-            <option value="Projeto 🚀">Projeto 🚀</option>
-            <option value="Dúvida ❓">Dúvida ❓</option>
-            <option value="Conquista 🏆">Conquista 🏆</option>
-        </select>
-
-        <div id="msg-erro"></div>
-
-        <button class="btn-publicar" id="btn-publicar" onclick="publicar()">Publicar</button>
     </div>
 
-    <script type="module" src="criar-post.js"></script>
+    <script type="module" src="/criar_post/criar-post.js"></script>
 </body>
 </html>

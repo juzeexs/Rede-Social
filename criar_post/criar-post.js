@@ -1,49 +1,86 @@
-import { db } from "../firebase.js";
-import { ref, push, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+import { db, app } from "../firebase.js"; // Certifique-se de exportar 'app' no seu firebase.js
+import { ref as dbRef, push, set } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+import { getStorage, ref as storageRef, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
-// Se não estiver logado, manda pro login
+// Inicializa o Storage do Firebase
+const storage = getStorage(app);
+
+// Validação de Login
 const nomeUsuario = localStorage.getItem("usuarioNome");
 const emailUsuario = localStorage.getItem("usuarioEmail");
 
 if (!nomeUsuario || !emailUsuario) {
     window.location.href = "/login/index.html";
+} else {
+    document.getElementById("display-username").textContent = nomeUsuario;
 }
 
-window.publicar = function () {
-    const texto = document.getElementById("input-texto").value.trim();
-    const imagem = document.getElementById("input-imagem").value.trim();
-    const tag = document.getElementById("input-tag").value;
-    const msgErro = document.getElementById("msg-erro");
-    const btn = document.getElementById("btn-publicar");
+// Elementos da tela
+const fileUpload = document.getElementById("file-upload");
+const imagePreview = document.getElementById("image-preview");
+const uploadPlaceholder = document.getElementById("upload-placeholder");
+const btnCompartilhar = document.getElementById("btn-compartilhar");
+const inputLegenda = document.getElementById("input-legenda");
 
-    msgErro.textContent = "";
+let arquivoSelecionado = null;
 
-    if (texto === "") {
-        msgErro.textContent = "Escreva algo antes de publicar!";
+// 1. Mostrar o preview da imagem quando selecionada
+fileUpload.addEventListener("change", (event) => {
+    const file = event.target.files[0];
+    if (file) {
+        arquivoSelecionado = file;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            imagePreview.src = e.target.result;
+            imagePreview.style.display = "block"; // Mostra a imagem
+            uploadPlaceholder.style.display = "none"; // Esconde os ícones e botão de upload
+        };
+        reader.readAsDataURL(file);
+    }
+});
+
+// 2. Fazer Upload e Publicar no Firebase
+btnCompartilhar.addEventListener("click", async () => {
+    const legenda = inputLegenda.value.trim();
+
+    if (!arquivoSelecionado) {
+        alert("Por favor, selecione uma imagem antes de compartilhar!");
         return;
     }
 
-    btn.disabled = true;
-    btn.textContent = "Publicando...";
+    // Muda o botão para mostrar que está carregando
+    btnCompartilhar.disabled = true;
+    btnCompartilhar.textContent = "Publicando...";
 
-    const postsRef = ref(db, "posts");
-    const novoPost = push(postsRef);
+    try {
+        // Passo 1: Fazer o upload da imagem pro Firebase Storage
+        const nomeDaImagem = `posts/${Date.now()}_${arquivoSelecionado.name}`;
+        const sRef = storageRef(storage, nomeDaImagem);
+        const snapshot = await uploadBytes(sRef, arquivoSelecionado);
+        
+        // Passo 2: Pegar o link da imagem que acabou de ser "upada"
+        const imageUrl = await getDownloadURL(snapshot.ref);
 
-    set(novoPost, {
-        autorNome: nomeUsuario,
-        autorEmail: emailUsuario,
-        texto: texto,
-        imagem: imagem || "",
-        tag: tag,
-        likes: 0,
-        data: new Date().toISOString()
-    }).then(() => {
-        alert("Post publicado!");
-        window.location.href = "/public/rede.html";
-    }).catch((error) => {
-        msgErro.textContent = "Erro ao publicar. Tente novamente.";
-        btn.disabled = false;
-        btn.textContent = "Publicar";
-        console.error(error);
-    });
-};
+        // Passo 3: Salvar os dados do Post no Realtime Database
+        const postsRef = dbRef(db, "posts");
+        const novoPost = push(postsRef);
+
+        await set(novoPost, {
+            autorNome: nomeUsuario,
+            autorEmail: emailUsuario,
+            texto: legenda,
+            imagem: imageUrl, // Aqui salvamos o link gerado pelo Storage
+            likes: 0,
+            data: new Date().toISOString()
+        });
+
+        alert("Post publicado com sucesso!");
+        window.location.href = "/public/rede.html"; // Redireciona para o feed
+
+    } catch (error) {
+        console.error("Erro ao publicar:", error);
+        alert("Erro ao publicar a imagem. Tente novamente.");
+        btnCompartilhar.disabled = false;
+        btnCompartilhar.textContent = "Compartilhar";
+    }
+});

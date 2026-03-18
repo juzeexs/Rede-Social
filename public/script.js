@@ -230,13 +230,7 @@ const usuariosBuscaMock = [
         foto: "https://i.pravatar.cc/150?img=11", 
         link: "perfil_visita.html?id=prof_joao" // O link passa o ID na URL!
     },
-    { 
-        id: "prof_maria", 
-        nome: "Maria Souza", 
-        subtitulo: "Mentora de Back-end", 
-        foto: "https://i.pravatar.cc/150?img=5", 
-        link: "perfil_visita.html?id=prof_maria" 
-    },
+    
     { 
         id: "aluno_carlos", 
         nome: "Carlos Eduardo", 
