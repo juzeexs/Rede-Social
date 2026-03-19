@@ -1,4 +1,4 @@
- @font-face {
+@font-face {
     font-family: 'Super Popstar';
     src: url('/fonts/MilkyNice-Clean.ttf') format('truetype'); /* Certifique-se de que o ficheiro .ttf está na mesma pasta que o style.css, caso contrário ajuste o caminho */
     font-weight: normal;
@@ -17,9 +17,9 @@ h1, h2, h3 {
  
  /* Estilos Base e Variáveis - TEMA SENAI 2026 */
 :root {
-    --bg-color: #F8F9FA;         /* Fundo cinza super claro, mais moderno */
+    --bg-color: #313131;         /* Fundo cinza super claro, mais moderno */
     --border-color: #E0E0E0;     /* Bordas sutis */
-    --text-main: #1A1A1A;        /* Quase preto, excelente para leitura */
+    --text-main: #ffffff;        /* Quase preto, excelente para leitura */
     --text-muted: #6C757D;       /* Cinza para textos secundários */
     
     /* Cores Oficiais SENAI */
@@ -45,7 +45,7 @@ h1, h2, h3 {
 
         /* Cabeçalho (Navbar) */
         header {
-            background-color: white;
+            background-color: #313131;
             border-bottom: 1px solid var(--border-color);
             position: fixed;
             top: 0;
@@ -63,6 +63,8 @@ h1, h2, h3 {
             align-items: center;
         }
 
+
+        /*logo senai connect*/
         .logo {
             font-size: 1.5rem;
             font-weight: bold;
@@ -70,8 +72,37 @@ h1, h2, h3 {
             color: var(--text-main);
             font-family: 'Super Popstar', sans-serif;
             font-size: 24px; /* Pode ajustar o tamanho se a fonte ficar muito pequena */
-        
+            animation: pulsarAzulBranco 2s infinite ease-in-out;
+
+
+
+
         }
+
+        @keyframes pulsarAzulBranco {
+
+            0%{
+                color: #0072CE;
+               text-shadow: 0 0 5px rgba(0, 74, 141, 0.5);
+            }
+
+            50%{
+                color: rgb(0, 204, 255);
+               text-shadow: 0 0 15px rgba(255, 255, 255, 0.8);
+
+            }
+
+            100%{
+                color: #0072CE;
+                text-shadow: 0 0 5px rgba(0, 74, 141, 0.5);
+
+            }
+        }
+
+/*********************************************************************************************************/
+
+
+
 
         .search-bar input {
             background-color: var(--bg-color);
@@ -94,7 +125,7 @@ h1, h2, h3 {
 
         /* Seção "Stories" (Trilhas Rápidas) */
         .stories-container {
-            background: white;
+            background-color: #313131;
             border: 1px solid var(--border-color);
             border-radius: 8px;
             padding: 16px 0;
@@ -103,6 +134,126 @@ h1, h2, h3 {
             gap: 15px;
             overflow-x: auto;
         }
+
+        /* ========================================== */
+/* BOTÃO DE TEMA CLARO/ESCURO                 */
+/* ========================================== */
+
+.theme-toggle-btn {
+    background: none;
+    border: 1.5px solid var(--border-color);
+    border-radius: 20px;
+    padding: 5px 12px;
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--text-main);
+    transition: all 0.3s ease;
+}
+
+.theme-toggle-btn:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+/* ==========================================
+   TEMA CLARO (ativado pela classe .tema-claro no body)
+   ========================================== */
+body.tema-claro {
+    --bg-color: #f5f5f5;
+    --text-main: #1a1a1a;
+    --border-color: #D0D0D0;
+    background-color: #f5f5f5;
+    color: #1a1a1a;
+}
+
+
+
+/*===========================================
+        estilo dos perfis visita
+===========================================*/
+
+
+
+
+/*cor dos 2 perfis /prof-ana/clube-python */
+.info-perfil{
+background-color: #004A8D;
+
+
+}
+
+/* Header */
+body.tema-claro header {
+    background-color: #ffffff;
+    border-bottom: 1px solid #D0D0D0;
+}
+
+/* Logo e links do header */
+body.tema-claro .logo,
+body.tema-claro header a {
+    color: #1a1a1a;
+}
+
+/* Stories */
+body.tema-claro .stories-container {
+    background-color: #ffffff;
+}
+
+body.tema-claro .story-title {
+    color: #1a1a1a;
+}
+
+/* Posts */
+body.tema-claro .post {
+    background-color: #ffffff;
+}
+
+body.tema-claro .post-user {
+    color: #1a1a1a;
+}
+
+body.tema-claro .post-likes {
+    color: #1a1a1a;
+}
+
+/* Sidebar */
+body.tema-claro .sidebar-title {
+    color: #6C757D;
+}
+
+body.tema-claro .suggestion-info h4 {
+    color: #1a1a1a;
+}
+
+/* Barra de busca */
+body.tema-claro .search-bar input {
+    background-color: #f0f0f0;
+    color: #1a1a1a;
+    border-color: #D0D0D0;
+}
+
+/* Painel de comentários */
+body.tema-claro .comments-panel {
+    background: #ffffff;
+    color: #1a1a1a;
+}
+
+body.tema-claro .panel-header {
+    border-bottom-color: #D0D0D0;
+}
+
+body.tema-claro .panel-footer {
+    border-top-color: #D0D0D0;
+}
+
+/* Botão de tema */
+body.tema-claro .theme-toggle-btn {
+    color: #1a1a1a;
+    border-color: #D0D0D0;
+}
+
+body.tema-claro .theme-toggle-btn:hover {
+    background-color: rgba(0,0,0,0.05);
+}
 
         .story {
             display: flex;
@@ -129,7 +280,7 @@ h1, h2, h3 {
 
         /* Feed de Postagens */
         .post {
-            background: white;
+            background: #313131;
             border: 1px solid var(--border-color);
             border-radius: 8px;
             margin-bottom: 24px;
@@ -151,6 +302,7 @@ h1, h2, h3 {
         .post-user {
             font-weight: 600;
             font-size: 0.9rem;
+            color: white;
         }
 
         .post-tag {
@@ -189,6 +341,7 @@ h1, h2, h3 {
             font-weight: 600;
             margin-bottom: 8px;
             display: block;
+            color: rgb(255, 255, 255);
         }
 
         /* Barra Lateral (Mentores e Dicas) */

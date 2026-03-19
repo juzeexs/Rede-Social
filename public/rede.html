@@ -15,8 +15,9 @@
     <input type="text" id="input-busca" placeholder="Buscar trilhas, mentores ou tópicos..." autocomplete="off">
     <div id="resultados-busca" class="resultados-busca"></div>
 </div>
-            <div style="font-size: 1.2rem; cursor: pointer;">
-                 <span><a href="/perfil/perfil.html">👤</a></span>
+            <div style="display: flex; align-items: center; gap: 15px; font-size: 1.2rem;">
+                <button class="theme-toggle-btn" onclick="alternarTema()" id="btn-tema">☀️ Claro</button>
+                <span><a href="/perfil/perfil.html">👤</a></span>
             </div>
         </div>
     </header>
@@ -126,5 +127,24 @@
     </div>
 
     <script type="module" src="script.js"></script>
+    <script>
+        function alternarTema() {
+            const body = document.body;
+            const btn = document.getElementById('btn-tema');
+            body.classList.toggle('tema-claro');
+            localStorage.setItem('tema', body.classList.contains('tema-claro') ? 'claro' : 'escuro');
+            btn.textContent = body.classList.contains('tema-claro') ? '🌙 Escuro' : '☀️ Claro';
+        }
+        (function() {
+            const temaSalvo = localStorage.getItem('tema');
+            if (temaSalvo === 'claro') {
+                document.body.classList.add('tema-claro');
+                document.addEventListener('DOMContentLoaded', () => {
+                    const btn = document.getElementById('btn-tema');
+                    if (btn) btn.textContent = '🌙 Escuro';
+                });
+            }
+        })();
+    </script>
 </body>
 </html>
